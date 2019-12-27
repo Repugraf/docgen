@@ -14,7 +14,7 @@ const getInstanse = async () => {
       return connection;
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 

@@ -1,10 +1,16 @@
 require('dotenv').config();
 
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 
-const dummyRoutes = require('./router/dummyRoutes');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(require('cors')());
 
-app.use('/api', dummyRoutes);
+const endpointsRoutes = require('./router/endpoints');
 
-app.listen(process.env.PORT || 3000)
+app.use('/api/endpoints', endpointsRoutes);
+
+app.listen(process.env.PORT || 3000);
