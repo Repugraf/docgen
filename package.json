@@ -1,0 +1,20 @@
+{
+  "name": "docgen",
+  "version": "1.0.0",
+  "description": "This is a tool for generating useful docs on your api",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "keywords": [],
+  "author": "Serhii Mamedov",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.4.1"
+  }
+}
