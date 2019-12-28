@@ -1,29 +1,33 @@
 <template>
   <div>
-    <pre>{{obj}}</pre>
     <form @submit.prevent="addProp">
-      <input type="text" name v-model="propName" />
+      <input type="text" name="name" v-model="propName" />
       <button type="submit">add prop</button>
       <button type="button" @click="currentObj=null">clear</button>
     </form>
-    <div v-if="obj">
-    <p v-for="i of Object.keys(currentObj)" :key="i">{{i}}</p>
-    </div>
+    <DisplayObject />
   </div>
 </template>
 
 <script>
+import DisplayObject from "./DisplayObject";
 export default {
+  components: {
+    DisplayObject
+  },
   data() {
     return {
-      currentObj: null,
       propName: ""
     };
   },
   computed: {
-    obj() {
-      if (!this.currentObj) return this.currentObj;
-      return JSON.stringify(this.currentObj, null, 2);
+    currentObj: {
+      get() {
+        return this.$store.state.currentObject;
+      },
+      set(value) {
+        this.$store.state.currentObject = value;
+      }
     }
   },
   methods: {
