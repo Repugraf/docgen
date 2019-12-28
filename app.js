@@ -1,16 +1,27 @@
 require('dotenv').config();
 
-const express = require('express');
-const bodyParser = require('body-parser');
+async function main() {
+  try {
+    const express = require('express');
+    const bodyParser = require('body-parser');
+    const { createMongoConnection } = require('./util/db');
 
-const app = express();
+    await createMongoConnection();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(require('cors')());
+    const app = express();
 
-const endpointsRoutes = require('./router/endpoints');
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    app.use(require('cors')());
 
-app.use('/api/endpoints', endpointsRoutes);
+    const endpointsRoutes = require('./router/endpoints');
 
-app.listen(process.env.PORT || 3000);
+    app.use('/api/endpoints', endpointsRoutes);
+
+    app.listen(process.env.PORT || 3000);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+main();

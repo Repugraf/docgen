@@ -1,32 +1,65 @@
-const mongodb = require('mongodb');
-const MongoClienent = mongodb.MongoClient;
+const { MongoClient } = require('mongodb');
 
-let connection;
+const client = new MongoClient(process.env.DB_URL, { useUnifiedTopology: true });
+let mongoConnection;
 
-const getInstanse = async () => {
+const createMongoConnection = async () => {
   try {
-    const client = new MongoClienent(process.env.DB_URL, { useUnifiedTopology: true });
-    if (connection) {
-      return connection;
-    } else {
-      connection = await client.connect();
+    if (!client.isConnected()) {
+      mongoConnection = await client.connect();
       console.log('connected to database!');
-      return connection;
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-const getCollection = async name => {
+const getMongoConnection = async () => {
   try {
-    const db = (await getInstanse()).db();
-    return db.collection(name);
+    await createMongoConnection();
+    return mongoConnection;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const closeMongoConnection = async () => {
+  try {
+    client.close();
+    mongoConnection = null;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const getDatabase = db => {
+  try {
+    if (db) return mongoConnection.db(db);
+    return mongoConnection.db();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const getCollection = (col, db) => {
+  try {
+    if (!col) throw new Error('collection is not specified!');
+
+    let database;
+
+    if (!db) database = getDatabase();
+    else database = getDatabase(db);
+
+    return database.collection(col);
   } catch (err) {
     console.log(err);
   }
 }
 
 module.exports = {
+  createMongoConnection,
+  getMongoConnection,
+  closeMongoConnection,
+  getDatabase,
   getCollection
-};
+}
