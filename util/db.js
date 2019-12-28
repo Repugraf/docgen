@@ -32,6 +32,10 @@ const closeMongoConnection = async () => {
   }
 }
 
+/**
+ * 
+ * @param {string} [db] - db name. optional 
+ */
 const getDatabase = db => {
   try {
     if (db) return mongoConnection.db(db);
@@ -41,16 +45,21 @@ const getDatabase = db => {
   }
 }
 
-const getCollection = (col, db) => {
+/**
+ * 
+ * @param {string} collection - collection name
+ * @param {string} [db] - db name. optional
+ */
+const getCollection = (collection, db) => {
   try {
-    if (!col) throw new Error('collection is not specified!');
+    if (!collection) throw new Error('collection is not specified!');
 
     let database;
 
     if (!db) database = getDatabase();
     else database = getDatabase(db);
 
-    return database.collection(col);
+    return database.collection(collection);
   } catch (err) {
     console.log(err);
   }
