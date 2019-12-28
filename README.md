@@ -11,7 +11,7 @@
     <code>sudo service mongod start</code> || <i>to start mongodb server</i>
   </li>
 </ul>
-<p>2. Install all dependencies by running <code>npm i</code></p>
+<p>2. Install all dependencies (frontend and backend) by running <code>npm run install-all</code></p>
 <p>3. Create .env file in root folder. The app will need this environment variables:</p>
 <ul>
   <li><code>DB_URL=mongodb://localhost:27017/docgen</code> <i>#(!is required!)</i> </li>

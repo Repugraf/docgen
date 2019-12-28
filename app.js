@@ -9,12 +9,13 @@ async function main() {
     await createMongoConnection();
 
     const app = express();
+    const endpointsRoutes = require('./router/endpoints');
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(require('cors')());
 
-    const endpointsRoutes = require('./router/endpoints');
+    app.use(express.static('./dist'));
 
     app.use('/api/endpoints', endpointsRoutes);
 
