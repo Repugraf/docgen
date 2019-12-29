@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon .",
     "install-all": "npm i && cd frontend && npm i",
-    "dev:front": "cd frontend && npm run serve",
+    "dev": "cd frontend && npm run serve",
     "build": "cd frontend && npm run build"
   },
   "keywords": [],
