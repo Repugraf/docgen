@@ -1,23 +1,26 @@
 <template>
   <div id="app">
-    <jsoneditor v-model="json"/>
+    <pre>{{endpoints}}</pre>
   </div>
 </template>
 
 <script>
-import jsoneditor from "./components/jsoneditor";
+import axios from "axios";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
-      json: {}
-    }
+      endpoints: null
+    };
   },
-  components: {
-    jsoneditor
+  async created() {
+    const endpoints = await axios.get(
+      this.$store.state.globals.GET_ALL_ENDPOINTS_URL
+    );
+    this.endpoints = JSON.stringify(endpoints.data, null, 2);
   }
-}
+};
 </script>
 
 <style lang="scss">
