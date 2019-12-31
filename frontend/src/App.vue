@@ -1,15 +1,21 @@
 <template>
   <div id="app">
-    <CreateEndpoint/>
+    <jsoneditor v-model="json"/>
   </div>
 </template>
 
 <script>
-import CreateEndpoint from "./components/CreateEndpoint";
+import jsoneditor from "./components/jsoneditor";
 
 export default {
+  name: 'app',
+  data() {
+    return {
+      json: {}
+    }
+  },
   components: {
-    CreateEndpoint
+    jsoneditor
   }
 }
 </script>
