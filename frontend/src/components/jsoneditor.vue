@@ -1,16 +1,14 @@
 <template>
-  <div :ref="id"></div>
+  <div ref="jsoneditor"></div>
 </template>
 
 <script>
 import jsoneditor from "jsoneditor";
-import uuid from "uuid/v4";
 
 export default {
   props: ["json"],
   data() {
     return {
-      id: `jsoneditor-${uuid()}`,
       editor: null
     };
   },
@@ -20,12 +18,10 @@ export default {
     }
   },
   mounted() {
-    const options = {
+    this.editor = new jsoneditor(this.$refs.jsoneditor, {
       mode: "tree",
       onChangeJSON: this.setJSON
-    };
-    const container = this.$refs[this.id];
-    this.editor = new jsoneditor(container, options);
+    });
   },
   beforeDestroy() {
     this.editor.destroy();
