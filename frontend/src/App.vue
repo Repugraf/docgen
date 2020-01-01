@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <EndpointsList/>
+    <EndpointsContainer />
   </div>
 </template>
 
 <script>
-import EndpointsList from "./components/endpoints/EndpointsList";
+import EndpointsContainer from "./components/endpoints/EndpointsContainer";
 
 export default {
   name: "app",
   components: {
-    EndpointsList
+    EndpointsContainer
   }
 };
 </script>
