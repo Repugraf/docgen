@@ -1,5 +1,5 @@
 <template>
-  <div :id="id"></div>
+  <div :ref="id"></div>
 </template>
 
 <script>
@@ -24,7 +24,7 @@ export default {
       mode: "tree",
       onChangeJSON: this.setJSON
     };
-    let container = document.querySelector(`#${this.id}`);
+    const container = this.$refs[this.id];
     this.editor = new jsoneditor(container, options);
   },
   beforeDestroy() {
@@ -40,9 +40,24 @@ $editor-border-color: black;
 // $editor-border-color: transparent;
 .jsoneditor {
   border-color: $editor-border-color;
-  .jsoneditor-menu {
+  > .jsoneditor-menu {
     background-color: $editor-color;
     border-bottom-color: $editor-border-color;
+  }
+}
+.pico-modal-header {
+  background-color: $editor-color !important;
+}
+.jsoneditor-button-group-value-asc {
+  input.jsoneditor-button-asc {
+    background: $editor-color !important;
+    border-color: $editor-border-color !important;
+  }
+}
+.jsoneditor-button-group-value-desc {
+  input.jsoneditor-button-desc {
+    background: $editor-color !important;
+    border-color: $editor-border-color !important;
   }
 }
 </style>
