@@ -1,14 +1,17 @@
 <template>
   <div v-if="endpoint">
-    <Endpoint :data="endpoint"/>
+    <Endpoint :data="endpoint" :editMode="true"/>
+    <DisplayEndpointDetails :data="endpoint"/>
   </div>
 </template>
 
 <script>
 import Endpoint from "./Endpoint";
+import DisplayEndpointDetails from "./DisplayEndpointDetails";
 export default {
   components: {
-    Endpoint
+    Endpoint,
+    DisplayEndpointDetails
   },
   computed: {
     endpoint() {
@@ -23,6 +26,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
