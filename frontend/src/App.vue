@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <EndpointsContainer />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import EndpointsContainer from "./components/endpoints/EndpointsContainer";
 
 export default {
-  name: "app",
-  components: {
-    EndpointsContainer
-  }
+  name: "app"
 };
 </script>
 

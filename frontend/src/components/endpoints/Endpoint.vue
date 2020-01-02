@@ -6,7 +6,12 @@
     <div class="url">
       <span>{{data.url}}</span>
     </div>
-    <div class="cross-icn" @click="deleteEndpoint(data._id)">
+    <router-link class="edit" :to="`/endpoint/${data._id}`">
+      <div class="icn edit">
+        <Edit />
+      </div>
+    </router-link>
+    <div class="icn cross" @click="deleteEndpoint(data._id)">
       <Cross color="red" />
     </div>
   </div>
@@ -14,10 +19,12 @@
 
 <script>
 import Cross from "../dynamic-icons/Cross";
+import Edit from "../dynamic-icons/Edit";
 export default {
   props: ["data"],
   components: {
-    Cross
+    Cross,
+    Edit
   },
   methods: {
     async deleteEndpoint(id) {
@@ -31,6 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 .endpoint {
+  position: relative;
   width: 100%;
   height: 2.5rem;
   border: 1px solid black;
@@ -39,7 +47,7 @@ export default {
   display: flex;
   align-items: center;
   margin: 0.625rem 0;
-  box-shadow: 0 0 3px rgba(0,0,0,.19);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
   .method {
     height: 100%;
     width: 4.7rem;
@@ -59,12 +67,12 @@ export default {
   .url {
     margin-left: 0.5rem;
   }
-  .cross-icn {
+  .icn {
     width: 1rem;
     height: 1rem;
-    margin-left: auto;
     padding: 0.7rem;
     cursor: pointer;
+
     &:hover {
       filter: brightness(80%);
     }
@@ -72,8 +80,11 @@ export default {
       filter: brightness(50%);
     }
   }
+  a.edit {
+    margin-left: auto;
+  }
   &.post {
-    background: rgba(73,204,144,0.1);
+    background: rgba(73, 204, 144, 0.1);
     border-color: #49cc90;
     .method {
       background-color: #49cc90;
@@ -81,7 +92,7 @@ export default {
     }
   }
   &.get {
-    background: rgba(97,175,254,.1);
+    background: rgba(97, 175, 254, 0.1);
     border-color: #61affe;
     .method {
       background-color: #61affe;
@@ -89,7 +100,7 @@ export default {
     }
   }
   &.put {
-    background: rgba(252,161,48,.1);
+    background: rgba(252, 161, 48, 0.1);
     border-color: #fca130;
     .method {
       background-color: #fca130fe;
@@ -97,7 +108,7 @@ export default {
     }
   }
   &.patch {
-    background: rgba(80,227,194,.1);
+    background: rgba(80, 227, 194, 0.1);
     border-color: #50e3c2;
     .method {
       background-color: #50e3c2;
@@ -105,7 +116,7 @@ export default {
     }
   }
   &.delete {
-    background: rgba(249,62,62,.1);
+    background: rgba(249, 62, 62, 0.1);
     border-color: #f93e3e;
     .method {
       background-color: #f93e3e;
@@ -113,7 +124,7 @@ export default {
     }
   }
   &.options {
-    background: rgba(13,90,167,.1);
+    background: rgba(13, 90, 167, 0.1);
     border-color: #0d5aa7;
     .method {
       background-color: #0d5aa7;
