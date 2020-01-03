@@ -3,6 +3,8 @@ body {
   padding: 0;
 }
 
+@import './globals.scss';
+
 .endpoint {
   position: relative;
   width: 100%;
@@ -99,6 +101,30 @@ body {
     .method {
       background-color: #0d5aa7;
       border-color: #0d5aa7;
+    }
+  }
+}
+
+nav.nav-bar {
+  background-color: black;
+  height: 2.5rem;
+  display: flex;
+  top: 0;
+  position: sticky;
+  z-index: 10;
+  .router-link {
+    height: 100%;
+    display: block;
+    color: $text-color;
+    font-size: 2rem;
+    padding: 0 1rem;
+    text-decoration: none;
+    font-family: sans-serif;
+    &.router-link-exact-active {
+      color: white;
+    }
+    &:hover {
+      background: rgb(68, 68, 68);
     }
   }
 }

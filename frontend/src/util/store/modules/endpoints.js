@@ -32,6 +32,9 @@ export default {
     },
     async updateEndpoint({ rootState }, payload) {
       await axios.patch(rootState.globals.UPDATE_ENDPOINT_URL, payload);
+    },
+    async replaceEndpoint({rootState}, payload) {
+      await axios.put(rootState.globals.REPLACE_ENDPOINT_URL, payload);
     }
   }
 }

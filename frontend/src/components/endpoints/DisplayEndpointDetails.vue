@@ -1,6 +1,6 @@
 <template>
   <div class="endpoint-display-menu">
-    <div class="json-container">
+    <div v-if="canHaveRequestBody" class="json-container">
       <h2>Request Body</h2>
       <jsoneditor v-if="tempRequestBody" v-model="tempRequestBody" />
       <button v-else @click="addBody('requestBody')">Add Body</button>
@@ -49,6 +49,18 @@ export default {
         JSON.stringify(this.data.responseBody) !==
           JSON.stringify(this.tempResponseBody)
       );
+    },
+    canHaveRequestBody() {
+      switch (this.data.method) {
+        case 'POST':
+          return true;
+        case 'PUT':
+          return true;
+        case 'PATCH':
+          return true;
+        default:
+          return false;
+      }
     }
   },
   methods: {
@@ -70,7 +82,7 @@ export default {
         const validFields = this.validFields;
         payload = { ...payload, ...validFields };
         payload = JSON.parse(JSON.stringify(payload));
-        await this.$store.dispatch("endpoints/updateEndpoint", payload);
+        await this.$store.dispatch("endpoints/replaceEndpoint", payload);
         await this.$store.dispatch(
           "endpoints/getOneEndpoint",
           this.$route.params.id

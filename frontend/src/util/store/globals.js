@@ -7,5 +7,6 @@ export default {
   GET_ALL_ENDPOINTS_URL: `${endpoints}/get-all`, // GET
   GET_ENDPOINT_URL: `${endpoints}/get`, // GET with :id || POST with filter in body
   UPDATE_ENDPOINT_URL: `${endpoints}/update`, // PATCH with body
+  REPLACE_ENDPOINT_URL: `${endpoints}/replace`, // PUT with body
   DELETE_ENDPOINT_URL: `${endpoints}/delete` // DELETE with :id
 }

@@ -48,7 +48,7 @@ router.post('/get', async (req, res) => {
     res.send(result);
   } catch (error) {
     console.log(err);
-    req.status(500).send(err);
+    res.status(500).send(err);
   }
 });
 
@@ -58,10 +58,24 @@ router.patch('/update', async (req, res) => {
     const id = new ObjectID(body._id);
     delete body._id;
     await endpointsCollection.updateOne({ _id: id }, { $set: body });
-    res.json({ message: "updated succesfully" });
+    res.json({ message: "updated successfully" });
   } catch (err) {
     console.log(err);
-    req.status(500).send(err);
+    res.status(500).send(err);
+  }
+});
+
+router.put('/replace', async (req, res) => {
+  try {
+    const { body } = req;
+    if (!body._id) return res.status(403).json({ message: "_id is not provided!" });
+    const id = new ObjectID(body._id);
+    body._id = id;
+    await endpointsCollection.replaceOne({ _id: id }, body);
+    res.json({ message: "replaced successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err);
   }
 });
 
