@@ -11,11 +11,6 @@ const endpointsCollection = getCollection('endpoints');
 router.post('/add', async (req, res) => {
   try {
     const body = req.body;
-    //
-    const canHaveBody = !!(body.method === "POST" || body.method === "PUT" || body.method === "PATCH");
-    if (canHaveBody && !body.requestBody)
-      body.requestBody = {};
-    //
     const result = await endpointsCollection.insertOne(body);
     const { insertedId } = result;
     res.status(201).json({ message: "endpoint inserted successfuly", insertedId });

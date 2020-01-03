@@ -30,6 +30,8 @@ export default {
     async deleteEndpoint(id) {
       if (!id) return;
       await this.$store.dispatch("endpoints/deleteEndpoint", id);
+      const targetUrl = '/endpoints';
+      if (this.$route.path !== targetUrl) return this.$router.push(targetUrl);
       await this.$store.dispatch("endpoints/getEndpoints");
     }
   }

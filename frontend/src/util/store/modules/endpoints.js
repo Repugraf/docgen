@@ -28,8 +28,10 @@ export default {
     },
     async getOneEndpoint({ rootState, commit }, id) {
       const endpoint = await axios.get(`${rootState.globals.GET_ENDPOINT_URL}/${id}`);
-
       commit('setCurrentEndpoint', endpoint.data);
+    },
+    async updateEndpoint({ rootState }, payload) {
+      await axios.patch(rootState.globals.UPDATE_ENDPOINT_URL, payload);
     }
   }
 }
