@@ -7,9 +7,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    globals
+    globals,
+    modal: null
   },
   mutations: {
+    setModal(state, payload) {
+      state.modal = payload;
+    }
   },
   actions: {
   },

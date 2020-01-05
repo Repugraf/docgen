@@ -11,7 +11,7 @@
         <Edit />
       </div>
     </router-link>
-    <div class="icn" :class="{edit: editMode}" @click="deleteEndpoint(data._id)">
+    <div class="icn" :class="{edit: editMode}" @click="openConfirmDeleteModal">
       <Cross color="red" />
     </div>
   </div>
@@ -33,6 +33,9 @@ export default {
       const targetUrl = '/endpoints';
       if (this.$route.path !== targetUrl) return this.$router.push(targetUrl);
       await this.$store.dispatch("endpoints/getEndpoints");
+    },
+    openConfirmDeleteModal() {
+      if (confirm('Are you sure?')) this.deleteEndpoint(this.data._id);
     }
   }
 };

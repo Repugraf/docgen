@@ -18,9 +18,11 @@
 </template>
 
 <script>
+import closableModal from "../../util/mixins/closableModal";
 import { isURL } from "validator";
 
 export default {
+  mixins: [closableModal],
   data() {
     return {
       method: "",
@@ -47,6 +49,7 @@ export default {
       await this.$store.dispatch("endpoints/addEndpoint", payload);
       await this.$store.dispatch("endpoints/getEndpoints");
       this.clearInputs();
+      this.closeModal();
     },
     clearInputs() {
       this.url = "";

@@ -1,18 +1,19 @@
 <template>
   <div class="endpoints-container">
     <EndpointsList />
-    <AddEndpoint />
+    <AddEndpointBtn />
   </div>
 </template>
 
 <script>
 import EndpointsList from "./EndpointsList";
-import AddEndpoint from "./AddEndpoint";
+// import AddEndpoint from "./AddEndpoint";
+import AddEndpointBtn from "./AddEndpointBtn";
 
 export default {
   components: {
     EndpointsList,
-    AddEndpoint
+    AddEndpointBtn
   }
 };
 </script>
