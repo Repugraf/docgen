@@ -1,25 +1,29 @@
 <template>
   <div class="endpoints-container">
     <EndpointsList />
-    <AddEndpointBtn />
+    <button
+      class="btn btn-submit"
+      @click="$store.commit('setModal', 'CreateEndpointModal')"
+    >add endpoint</button>
   </div>
 </template>
 
 <script>
 import EndpointsList from "./EndpointsList";
-// import AddEndpoint from "./AddEndpoint";
-import AddEndpointBtn from "./AddEndpointBtn";
 
 export default {
   components: {
-    EndpointsList,
-    AddEndpointBtn
+    EndpointsList
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .endpoints-container {
-  margin: 0.625rem;
+  max-width: 1200px;
+  margin: 1rem auto;
+  @media (max-width: 1220px) {
+    margin: 1rem;
+  }
 }
 </style>

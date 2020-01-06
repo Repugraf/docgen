@@ -1,10 +1,3 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
-@import './globals.scss';
-
 .endpoint {
   position: relative;
   width: 100%;
@@ -108,25 +101,89 @@ body {
 nav.nav-bar {
   background-color: black;
   height: 2.5rem;
-  display: flex;
   top: 0;
   position: sticky;
   z-index: 10;
-  .router-link {
+  .links-container {
     height: 100%;
-    display: block;
-    color: $text-color;
-    font-size: 2rem;
-    padding: 0 1rem;
-    text-decoration: none;
-    font-family: sans-serif;
-    &.router-link-exact-active {
-      color: white;
-    }
-    &:hover {
-      background: rgb(68, 68, 68);
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    .router-link {
+      height: 100%;
+      display: block;
+      color: $text-color;
+      font-size: 2rem;
+      padding: 0 1rem;
+      text-decoration: none;
+      font-family: sans-serif;
+      @media (min-width: 1220px) {
+        &:first-child {
+          padding-left: 0;
+        }
+      }
+      &.router-link-exact-active {
+        color: white;
+      }
+      &:hover {
+        background: rgb(68, 68, 68);
+      }
     }
   }
 }
 
-@import './jsoneditor-custom-styles.scss';
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  .modal-container {
+    &:focus {
+      outline: none;
+    }
+    padding: 1.3rem;
+    background-color: white;
+    border-radius: 1rem;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    // width: 50vw;
+    min-height: 200px;
+    width: 800px;
+    @media (min-width: 601px) and (max-width: 900px) {
+      width: 500px;
+    }
+    @media (max-width: 600px) {
+      width: 80vw;
+    }
+  }
+}
+
+.add-endpoint {
+  > * {
+    margin-top: 0.5rem;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+  }
+  label {
+    > * {
+      min-height: 2rem;
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    }
+  }
+  .controlls-container {
+    display: flex;
+    button {
+      &:last-child {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

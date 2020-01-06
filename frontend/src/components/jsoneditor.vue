@@ -11,11 +11,6 @@ export default {
       editor: null
     };
   },
-  computed: {
-    json() {
-      return this.$attrs.value;
-    }
-  },
   methods: {
     setJSON(json) {
       this.$emit("input", json);
@@ -26,7 +21,7 @@ export default {
       mode: "tree",
       onChangeJSON: this.setJSON
     });
-    this.editor.set(this.json); 
+    this.editor.set(this.$attrs.value); 
   },
   beforeDestroy() {
     this.editor.destroy();

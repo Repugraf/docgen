@@ -1,18 +1,22 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit">
+    <form class="add-endpoint" @submit.prevent="onSubmit">
       <label>
-        <span>Method</span>
         <select v-model="method">
-          <option value hidden>--Select option--</option>
+          <option value hidden>--Select method--</option>
           <option v-for="i of options" :key="i" :value="i">{{i}}</option>
         </select>
       </label>
       <label>
-        <span>Url</span>
-        <input type="text" v-model="url" />
+        <input type="text" placeholder="Url" v-model="url" />
       </label>
-      <button :disabled="!isValid">Submit</button>
+      <label>
+        <textarea v-model="description" placeholder="Description" style="resize: none;"></textarea>
+      </label>
+      <div class="controlls-container">
+        <button class="btn btn-cancel" type="button" @click="closeModal">cancel</button>
+        <button class="btn btn-submit" :disabled="!isValid">submit</button>
+      </div>
     </form>
   </div>
 </template>
@@ -27,14 +31,8 @@ export default {
     return {
       method: "",
       url: "",
-      options: [
-        "GET",
-        "POST",
-        "PUT",
-        "PATCH",
-        "DELETE",
-        "OPTIONS"
-      ]
+      description: "",
+      options: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     };
   },
   computed: {
@@ -45,7 +43,12 @@ export default {
   methods: {
     async onSubmit() {
       if (!this.isValid) return;
-      const payload = { method: this.method, url: this.url };
+      const payload = {
+        method: this.method,
+        url: this.url,
+        description: this.description
+      };
+      if (!this.description) delete payload.description;
       await this.$store.dispatch("endpoints/addEndpoint", payload);
       await this.$store.dispatch("endpoints/getEndpoints");
       this.clearInputs();
@@ -54,6 +57,7 @@ export default {
     clearInputs() {
       this.url = "";
       this.method = "";
+      this.description = "";
     }
   }
 };
