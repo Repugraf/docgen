@@ -1,5 +1,5 @@
 <template>
-  <div v-if="endpoint">
+  <div class="endpoints-container" v-if="endpoint">
     <Endpoint :data="endpoint" :editMode="true"/>
     <DisplayEndpointDetails :data="endpoint"/>
   </div>

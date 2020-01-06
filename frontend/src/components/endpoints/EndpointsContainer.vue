@@ -17,13 +17,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.endpoints-container {
-  max-width: 1200px;
-  margin: 1rem auto;
-  @media (max-width: 1220px) {
-    margin: 1rem;
-  }
-}
-</style>
