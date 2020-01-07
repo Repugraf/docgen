@@ -17,7 +17,8 @@
       </div>
     </div>
     <div v-if="showMenu" class="endpoint-menu">
-      <pre>{{data}}</pre>
+      <!-- <pre>{{data}}</pre> -->
+      <EndpointData :data="data"/>
     </div>
   </div>
 </template>
@@ -25,11 +26,13 @@
 <script>
 import Cross from "../dynamic-icons/Cross";
 import Edit from "../dynamic-icons/Edit";
+import EndpointData from "./EndpointData";
 export default {
   props: ["data", "editMode"],
   components: {
     Cross,
-    Edit
+    Edit,
+    EndpointData
   },
   data() {
     return {
