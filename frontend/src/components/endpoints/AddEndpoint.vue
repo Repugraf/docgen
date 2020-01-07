@@ -1,5 +1,4 @@
 <template>
-  <div>
     <form class="add-endpoint" @submit.prevent="onSubmit">
       <label>
         <select v-model="method" ref="select">
@@ -11,14 +10,13 @@
         <input type="text" placeholder="Url" v-model="url" />
       </label>
       <label>
-        <textarea v-model="description" placeholder="Description" style="resize: none;"></textarea>
+        <textarea v-model="description" placeholder="Description"></textarea>
       </label>
       <div class="controlls-container">
         <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>
         <button class="btn btn-submit" :disabled="!isValid">submit</button>
       </div>
     </form>
-  </div>
 </template>
 
 <script>

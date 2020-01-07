@@ -1,17 +1,12 @@
 <template>
-  <div class="endpoints-container" v-if="endpoint">
-    <!-- <Endpoint :data="endpoint" :editMode="true"/> -->
-    <DisplayEndpointDetails :data="endpoint"/>
-  </div>
+    <EditEndpoint :data="endpoint" v-if="endpoint"/>
 </template>
 
 <script>
-// import Endpoint from "./Endpoint";
-import DisplayEndpointDetails from "./DisplayEndpointDetails";
+import EditEndpoint from "./EditEndpoint";
 export default {
   components: {
-    // Endpoint,
-    DisplayEndpointDetails
+    EditEndpoint
   },
   computed: {
     endpoint() {
@@ -19,7 +14,10 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch("endpoints/getOneEndpoint", this.$route.params.id);
+    await this.$store.dispatch(
+      "endpoints/getOneEndpoint",
+      this.$route.params.id
+    );
   },
   destroyed() {
     this.$store.commit("endpoints/setCurrentEndpoint");

@@ -24,7 +24,7 @@
       <button :disabled="!somethingWasChanged" class="btn btn-submit" @click="saveEndpoint">Save</button>
       <button class="btn btn-cancel" style="margin-left: 10px;" @click="openConfirmDeleteModal">Delete endpoint</button>
     </div>
-    <pre>{{data}}</pre>
+    <!-- <pre>{{data}}</pre> -->
   </div>
 </template>
 
@@ -32,7 +32,7 @@
 import jsoneditor from "../jsoneditor";
 import { methodOptions } from "../../util/consts";
 export default {
-  props: ["data"],
+  props: ['data'],
   components: {
     jsoneditor
   },
@@ -86,7 +86,7 @@ export default {
     }
   },
   methods: {
-    setInitialData() {
+    setInitialdata() {
       const { method, url, description } = this.data;
       this.tempMethod = method;
       this.tempUrl = url;
@@ -127,9 +127,12 @@ export default {
     }
   },
   mounted() {
-    this.setInitialData();
+    this.setInitialdata();
     this.tempRequestBody = this.data.requestBody;
     this.tempResponseBody = this.data.responseBody;
+  },
+  destroyed() {
+    this.$store.commit("endpoints/setCurrentEndpoint");
   }
 };
 </script>
