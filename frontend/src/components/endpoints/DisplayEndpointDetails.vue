@@ -1,5 +1,15 @@
 <template>
-  <div class="endpoint-display-menu">
+  <div class="edit-endpoint-container">
+    <div class="heading">
+      <select v-model="tempMethod">
+        <option v-for="i of methodOptions" :value="i" :key="i">{{i}}</option>
+      </select>
+      <input type="text" v-model="tempUrl" />
+    </div>
+    <div class="descrition">
+      <h2>Description</h2>
+      <textarea v-model="tempDescription" placeholder="Describe this endpoint"></textarea>
+    </div>
     <div v-if="canHaveRequestBody" class="json-container">
       <h2>Request Body</h2>
       <jsoneditor v-if="tempRequestBody" v-model="tempRequestBody" />
@@ -10,8 +20,9 @@
       <jsoneditor v-if="tempResponseBody" v-model="tempResponseBody" />
       <button v-else @click="addBody('responseBody')">Add Body</button>
     </div>
-    <div v-if="validFieldsArePresent && somethingWasChanged" style="margin-top: 20px;">
-      <button @click="saveEndpoint">Save</button>
+    <div style="margin-top: 20px; display:flex;">
+      <button :disabled="!somethingWasChanged" class="btn btn-submit" @click="saveEndpoint">Save</button>
+      <button class="btn btn-cancel" style="margin-left: 10px;" @click="openConfirmDeleteModal">Delete endpoint</button>
     </div>
     <pre>{{data}}</pre>
   </div>
@@ -19,6 +30,7 @@
 
 <script>
 import jsoneditor from "../jsoneditor";
+import { methodOptions } from "../../util/consts";
 export default {
   props: ["data"],
   components: {
@@ -26,24 +38,34 @@ export default {
   },
   data() {
     return {
+      tempMethod: "",
+      tempUrl: "",
+      tempDescription: "",
       tempRequestBody: null,
-      tempResponseBody: null
+      tempResponseBody: null,
+      methodOptions
     };
   },
   computed: {
     validFields() {
       const fieldsToUpdate = {};
+      fieldsToUpdate.method = this.tempMethod;
+      fieldsToUpdate.url = this.tempUrl;
+      fieldsToUpdate.description = this.tempDescription;
       if (this.tempRequestBody)
         fieldsToUpdate.requestBody = this.tempRequestBody;
       if (this.tempResponseBody)
         fieldsToUpdate.responseBody = this.tempResponseBody;
       return fieldsToUpdate;
     },
-    validFieldsArePresent() {
-      return Object.keys(this.validFields).length > 0;
-    },
+    // validFieldsArePresent() {
+    //   return Object.keys(this.validFields).length > 0;
+    // },
     somethingWasChanged() {
       return (
+        this.tempMethod !== this.data.method ||
+        this.tempUrl !== this.data.url ||
+        this.tempDescription !== this.data.description ||
         JSON.stringify(this.data.requestBody) !==
           JSON.stringify(this.tempRequestBody) ||
         JSON.stringify(this.data.responseBody) !==
@@ -52,11 +74,11 @@ export default {
     },
     canHaveRequestBody() {
       switch (this.data.method) {
-        case 'POST':
+        case "POST":
           return true;
-        case 'PUT':
+        case "PUT":
           return true;
-        case 'PATCH':
+        case "PATCH":
           return true;
         default:
           return false;
@@ -64,6 +86,12 @@ export default {
     }
   },
   methods: {
+    setInitialData() {
+      const { method, url, description } = this.data;
+      this.tempMethod = method;
+      this.tempUrl = url;
+      this.tempDescription = description;
+    },
     addBody(type) {
       switch (type) {
         case "requestBody":
@@ -77,7 +105,7 @@ export default {
       }
     },
     async saveEndpoint() {
-      if (this.validFieldsArePresent && this.somethingWasChanged) {
+      if (/* this.validFieldsArePresent &&  */this.somethingWasChanged) {
         let payload = JSON.parse(JSON.stringify(this.data));
         const validFields = this.validFields;
         payload = { ...payload, ...validFields };
@@ -88,9 +116,18 @@ export default {
           this.$route.params.id
         );
       }
+    },
+    async deleteEndpoint(id) {
+      if (!id) return;
+      await this.$store.dispatch("endpoints/deleteEndpoint", id);
+      this.$router.push('/endpoints');
+    },
+    openConfirmDeleteModal() {
+      if (confirm('Are you sure?')) this.deleteEndpoint(this.data._id);
     }
   },
   mounted() {
+    this.setInitialData();
     this.tempRequestBody = this.data.requestBody;
     this.tempResponseBody = this.data.responseBody;
   }
@@ -98,7 +135,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.endpoint-display-menu {
+.edit-endpoint-container {
+  * {
+    box-sizing: border-box;
+  }
+  .heading {
+    height: 2rem;
+    display: flex;
+    * {
+      min-height: 100%;
+      width: 100%;
+    }
+    input {
+      flex: 10;
+    }
+    select {
+      flex: 1;
+    }
+    @media (min-width: 661px) and (max-width: 920px) {
+      select {
+        flex: 1.5;
+      }
+    }
+    @media (max-width: 660px) {
+      select {
+        flex: 3;
+      }
+    }
+  }
+  .descrition {
+    textarea {
+      width: 100%;
+      min-height: 6rem;
+      resize: none;
+    }
+  }
   .json-container {
   }
 }

@@ -24,6 +24,7 @@
 <script>
 import closableModal from "../../util/mixins/closableModal";
 import { isURL } from "validator";
+import { methodOptions as options } from "../../util/consts";
 
 export default {
   mixins: [closableModal],
@@ -32,7 +33,7 @@ export default {
       method: "",
       url: "",
       description: "",
-      options: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+      options
     };
   },
   computed: {
