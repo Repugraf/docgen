@@ -10,11 +10,12 @@
       <h2>Description</h2>
       <textarea v-model="tempDescription" placeholder="Describe this endpoint"></textarea>
     </div>
-    <div v-if="canHaveRequestBody" class="json-container">
+    <!-- <div v-if="canHaveRequestBody" class="json-container">
       <h2>Request Body</h2>
       <jsoneditor v-if="tempRequestBody" v-model="tempRequestBody" />
       <button v-else @click="addBody('requestBody')">Add Body</button>
-    </div>
+    </div> -->
+    <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody"/>
     <div class="json-container">
       <h2>Response Body</h2>
       <jsoneditor v-if="tempResponseBody" v-model="tempResponseBody" />
@@ -30,11 +31,13 @@
 
 <script>
 import jsoneditor from "../jsoneditor";
+import EditableRequestBody from "./EditableRequestBody";
 import { methodOptions } from "../../util/consts";
 export default {
   props: ['data'],
   components: {
-    jsoneditor
+    jsoneditor,
+    EditableRequestBody
   },
   data() {
     return {
@@ -172,8 +175,6 @@ export default {
       min-height: 6rem;
       resize: none;
     }
-  }
-  .json-container {
   }
 }
 </style>

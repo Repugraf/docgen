@@ -1,5 +1,8 @@
 <template>
-  <div class="json-editor-container" ref="jsoneditor"></div>
+  <div>
+    <div class="json-editor-container" ref="jsoneditor"></div>
+    <button class="btn btn-cancel" style="border-radius: 0;" @click="setJSON(null)">Delete Field</button>
+  </div>
 </template>
 
 <script>
@@ -21,7 +24,7 @@ export default {
       mode: "tree",
       onChangeJSON: this.setJSON
     });
-    this.editor.set(this.$attrs.value); 
+    this.editor.set(this.$attrs.value);
   },
   beforeDestroy() {
     this.editor.destroy();
