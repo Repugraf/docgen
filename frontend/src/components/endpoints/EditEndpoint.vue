@@ -14,8 +14,8 @@
       <h2>Request Body</h2>
       <jsoneditor v-if="tempRequestBody" v-model="tempRequestBody" />
       <button v-else @click="addBody('requestBody')">Add Body</button>
-    </div> -->
-    <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody"/>
+    </div>-->
+    <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody" />
     <div class="json-container">
       <h2>Response Body</h2>
       <jsoneditor v-if="tempResponseBody" v-model="tempResponseBody" />
@@ -23,7 +23,11 @@
     </div>
     <div style="margin-top: 20px; display:flex;">
       <button :disabled="!somethingWasChanged" class="btn btn-submit" @click="saveEndpoint">Save</button>
-      <button class="btn btn-cancel" style="margin-left: 10px;" @click="openConfirmDeleteModal">Delete endpoint</button>
+      <button
+        class="btn btn-cancel"
+        style="margin-left: 10px;"
+        @click="openConfirmDeleteModal"
+      >Delete endpoint</button>
     </div>
     <!-- <pre>{{data}}</pre> -->
   </div>
@@ -34,7 +38,7 @@ import jsoneditor from "../jsoneditor";
 import EditableRequestBody from "./EditableRequestBody";
 import { methodOptions } from "../../util/consts";
 export default {
-  props: ['data'],
+  props: ["data"],
   components: {
     jsoneditor,
     EditableRequestBody
@@ -51,14 +55,15 @@ export default {
   },
   computed: {
     validFields() {
-      const fieldsToUpdate = {};
+      const fieldsToUpdate = {...this.data};
       fieldsToUpdate.method = this.tempMethod;
       fieldsToUpdate.url = this.tempUrl;
       fieldsToUpdate.description = this.tempDescription;
-      if (this.tempRequestBody)
-        fieldsToUpdate.requestBody = this.tempRequestBody;
-      if (this.tempResponseBody)
-        fieldsToUpdate.responseBody = this.tempResponseBody;
+      fieldsToUpdate.requestBody = this.tempRequestBody;
+      fieldsToUpdate.responseBody = this.tempResponseBody;
+      if (!this.tempRequestBody) delete fieldsToUpdate.requestBody;
+      if (!this.tempRequestBody) delete fieldsToUpdate.responseBody;
+
       return fieldsToUpdate;
     },
     // validFieldsArePresent() {
@@ -108,11 +113,8 @@ export default {
       }
     },
     async saveEndpoint() {
-      if (/* this.validFieldsArePresent &&  */this.somethingWasChanged) {
-        let payload = JSON.parse(JSON.stringify(this.data));
-        const validFields = this.validFields;
-        payload = { ...payload, ...validFields };
-        payload = JSON.parse(JSON.stringify(payload));
+      if (this.somethingWasChanged) {
+        const payload = this.validFields;
         await this.$store.dispatch("endpoints/replaceEndpoint", payload);
         await this.$store.dispatch(
           "endpoints/getOneEndpoint",
@@ -123,10 +125,10 @@ export default {
     async deleteEndpoint(id) {
       if (!id) return;
       await this.$store.dispatch("endpoints/deleteEndpoint", id);
-      this.$router.push('/endpoints');
+      this.$router.push("/endpoints");
     },
     openConfirmDeleteModal() {
-      if (confirm('Are you sure?')) this.deleteEndpoint(this.data._id);
+      if (confirm("Are you sure?")) this.deleteEndpoint(this.data._id);
     }
   },
   mounted() {

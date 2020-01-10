@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="json-editor-container" ref="jsoneditor"></div>
-    <button class="btn btn-cancel" style="border-radius: 0;" @click="setJSON(null)">Delete Field</button>
+    <button class="btn btn-cancel" style="border-radius: 0;" @click="setJSON(undefined)">Delete Field</button>
   </div>
 </template>
 
