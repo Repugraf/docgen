@@ -3,7 +3,6 @@ require('dotenv').config();
 async function main() {
   try {
     const express = require('express');
-    const bodyParser = require('body-parser');
     const { createMongoConnection } = require('./util/db');
 
     await createMongoConnection();
@@ -11,8 +10,8 @@ async function main() {
     const app = express();
     const endpointsRoutes = require('./router/endpoints');
 
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+    app.use(express.urlencoded());
+    app.use(express.json());
     app.use(require('cors')());
 
     app.use(express.static('./dist'));
