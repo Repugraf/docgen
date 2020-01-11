@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="json-editor-container" ref="jsoneditor"></div>
-    <button class="btn btn-cancel" style="border-radius: 0;" @click="setJSON(undefined)">Delete Field</button>
+    <button class="btn btn-cancel" style="border-radius: 0;" @click="deleteField">Delete Field</button>
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
   methods: {
     setJSON(json) {
       this.$emit("input", json);
+    },
+    deleteField() {
+      this.$emit("deleteField");
     }
   },
   mounted() {

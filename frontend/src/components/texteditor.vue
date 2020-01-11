@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea v-model="data"></textarea>
-    <button class="btn btn-cancel" style="border-radius: 0;" @click="setData(undefined)">Delete Field</button>
+    <button class="btn btn-cancel" style="border-radius: 0;" @click="deleteField">Delete Field</button>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
   methods: {
     setData(val) {
       this.$emit("input", val);
+    },
+    deleteField() {
+      this.$emit("deleteField");
     }
   }
 };

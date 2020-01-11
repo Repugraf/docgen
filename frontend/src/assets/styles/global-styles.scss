@@ -227,3 +227,13 @@ nav.nav-bar {
     margin: 1rem;
   }
 }
+
+.editable-field-heading-container {
+  display: flex;
+  align-items: center;
+  select {
+    margin-left: auto;
+    height: 2rem;
+    width: 8rem;
+  }
+}

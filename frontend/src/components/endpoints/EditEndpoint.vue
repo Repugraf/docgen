@@ -10,17 +10,8 @@
       <h2>Description</h2>
       <textarea v-model="tempDescription" placeholder="Describe this endpoint"></textarea>
     </div>
-    <!-- <div v-if="canHaveRequestBody" class="json-container">
-      <h2>Request Body</h2>
-      <jsoneditor v-if="tempRequestBody" v-model="tempRequestBody" />
-      <button v-else @click="addBody('requestBody')">Add Body</button>
-    </div>-->
     <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody" />
-    <div class="json-container">
-      <h2>Response Body</h2>
-      <jsoneditor v-if="tempResponseBody" v-model="tempResponseBody" />
-      <button v-else @click="addBody('responseBody')">Add Body</button>
-    </div>
+    <EditableResponseBody v-model="tempResponseBody" />
     <div style="margin-top: 20px; display:flex;">
       <button :disabled="!somethingWasChanged" class="btn btn-submit" @click="saveEndpoint">Save</button>
       <button
@@ -29,19 +20,18 @@
         @click="openConfirmDeleteModal"
       >Delete endpoint</button>
     </div>
-    <!-- <pre>{{data}}</pre> -->
   </div>
 </template>
 
 <script>
-import jsoneditor from "../jsoneditor";
 import EditableRequestBody from "./EditableRequestBody";
+import EditableResponseBody from "./EditableResponseBody";
 import { methodOptions } from "../../util/consts";
 export default {
   props: ["data"],
   components: {
-    jsoneditor,
-    EditableRequestBody
+    EditableRequestBody,
+    EditableResponseBody
   },
   data() {
     return {
@@ -55,20 +45,26 @@ export default {
   },
   computed: {
     validFields() {
-      const fieldsToUpdate = {...this.data};
+      const fieldsToUpdate = { ...this.data };
+
+      const RequestBody =
+        typeof this.tempRequestBody === "object"
+          ? JSON.parse(JSON.stringify(this.tempRequestBody))
+          : this.tempRequestBody;
+      const ResponseBody =
+        typeof this.tempResponseBody === "object"
+          ? JSON.parse(JSON.stringify(this.tempResponseBody))
+          : this.tempResponseBody;
+
       fieldsToUpdate.method = this.tempMethod;
       fieldsToUpdate.url = this.tempUrl;
       fieldsToUpdate.description = this.tempDescription;
-      fieldsToUpdate.requestBody = this.tempRequestBody;
-      fieldsToUpdate.responseBody = this.tempResponseBody;
-      if (!this.tempRequestBody) delete fieldsToUpdate.requestBody;
-      if (!this.tempRequestBody) delete fieldsToUpdate.responseBody;
-
+      fieldsToUpdate.requestBody = RequestBody;
+      fieldsToUpdate.responseBody = ResponseBody;
+      if (!RequestBody) delete fieldsToUpdate.requestBody;
+      if (!ResponseBody) delete fieldsToUpdate.responseBody;
       return fieldsToUpdate;
     },
-    // validFieldsArePresent() {
-    //   return Object.keys(this.validFields).length > 0;
-    // },
     somethingWasChanged() {
       return (
         this.tempMethod !== this.data.method ||

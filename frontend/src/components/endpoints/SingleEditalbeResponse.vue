@@ -1,19 +1,18 @@
 <template>
   <div>
     <div class="editable-field-heading-container">
-      <h2>Request Body</h2>
-      <select v-if="data !== null && data !== undefined && component" v-model="component">
+    <h2>{{item.status}}</h2>
+      <select v-if="item.data !== undefined && item.data !== null && component" v-model="component">
         <option value="jsoneditor">application/json</option>
         <option value="texteditor">text/plain</option>
       </select>
     </div>
     <component
-      v-if="data !== null && data !== undefined && component"
+      v-if="item.data !== undefined && item.data !== null && component"
       :is="component"
-      v-model="data"
-      @deleteField="data = undefined"
+      v-model="item.data"
+      @deleteField="deleteField"
     />
-    <button v-else @click="setBody({})" class="btn btn-submit">Add Body</button>
   </div>
 </template>
 
@@ -21,22 +20,15 @@
 import jsoneditor from "../jsoneditor";
 import texteditor from "../texteditor";
 export default {
+  props: ["item", "index", "items"],
   components: {
     jsoneditor,
     texteditor
   },
   computed: {
-    data: {
-      get() {
-        return this.$attrs.value;
-      },
-      set(value) {
-        this.$emit("input", value);
-      }
-    },
     component: {
       get() {
-        switch (typeof this.data) {
+        switch (typeof this.item.data) {
           case "object":
             return "jsoneditor";
           case "string":
@@ -61,13 +53,15 @@ export default {
     }
   },
   methods: {
-    setBody(val = {}) {
-      this.$emit("input", val);
+    setBody(value = {}) {
+      this.item.data = value;
+    },
+    deleteField() {
+      this.$emit('deleteField', this.index);
     }
   }
 };
 </script>
 
-<style lang="scss">
-
+<style>
 </style>

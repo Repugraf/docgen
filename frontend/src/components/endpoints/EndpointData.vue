@@ -9,5 +9,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+pre {
+  overflow: auto;
+}
 </style>
