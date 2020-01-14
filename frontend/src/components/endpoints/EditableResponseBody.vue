@@ -10,8 +10,8 @@
         :items="data"
         @deleteField="(i)=>deleteField(i)"
       />
+    <button @click="addNewResponse" class="btn btn-submit" style="height:3rem;">Add New Field</button>
     </div>
-    <!-- <jsoneditor v-if="data" v-model="data" /> -->
     <button v-else @click="setDefaultBody" class="btn btn-submit">Add Body</button>
   </div>
 </template>
@@ -42,6 +42,9 @@ export default {
     },
     setDefaultBody() {
       this.setBody([{ status: 200, data: {} }]);
+    },
+    addNewResponse() {
+      this.data.push({ status: 200, data: {} });
     }
   }
 };

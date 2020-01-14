@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <div class="editable-field-heading-container">
-    <h2>{{item.status}}</h2>
-      <select v-if="item.data !== undefined && item.data !== null && component" v-model="component">
+  <div class="editable-field-container">
+    <div class="editable-field-heading-container response-field-heading">
+      <select v-model="item.status">
+        <option v-for="i of codeOptions" :value="i.status" :key="i.status">{{`${i.status} - ${i.description}`}}</option>
+      </select>
+      <select v-if="item.data !== undefined && item.data !== null && component" v-model="component" class="type">
         <option value="jsoneditor">application/json</option>
         <option value="texteditor">text/plain</option>
       </select>
@@ -19,11 +21,18 @@
 <script>
 import jsoneditor from "../jsoneditor";
 import texteditor from "../texteditor";
+import statusCodesList from "../../util/statusCodesList";
+
 export default {
   props: ["item", "index", "items"],
   components: {
     jsoneditor,
     texteditor
+  },
+  data() {
+    return {
+      codeOptions: statusCodesList.statusCodes
+    }
   },
   computed: {
     component: {
@@ -64,4 +73,7 @@ export default {
 </script>
 
 <style>
+.response-field-heading{
+  margin-bottom: 1rem;
+}
 </style>

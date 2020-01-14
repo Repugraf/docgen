@@ -1,27 +1,47 @@
 @import "~jsoneditor/dist/jsoneditor.css";
+// .json-editor-container {
+//   $editor-color: black;
+//   $editor-border-color: black;
+//   // $editor-border-color: transparent;
+//   .jsoneditor {
+//     border-color: $editor-border-color;
+//     > .jsoneditor-menu {
+//       background-color: $editor-color;
+//       border-bottom-color: $editor-border-color;
+//     }
+//   }
+//   .pico-modal-header {
+//     background-color: $editor-color !important;
+//   }
+//   .jsoneditor-button-group-value-asc {
+//     input.jsoneditor-button-asc {
+//       background: $editor-color !important;
+//       border-color: $editor-border-color !important;
+//     }
+//   }
+//   .jsoneditor-button-group-value-desc {
+//     input.jsoneditor-button-desc {
+//       background: $editor-color !important;
+//       border-color: $editor-border-color !important;
+//     }
+//   }
+// }
+
 .json-editor-container {
-  $editor-color: black;
-  $editor-border-color: black;
-  // $editor-border-color: transparent;
+  $editor-border-color: grey;
   .jsoneditor {
     border-color: $editor-border-color;
     > .jsoneditor-menu {
-      background-color: $editor-color;
       border-bottom-color: $editor-border-color;
     }
   }
-  .pico-modal-header {
-    background-color: $editor-color !important;
-  }
   .jsoneditor-button-group-value-asc {
     input.jsoneditor-button-asc {
-      background: $editor-color !important;
       border-color: $editor-border-color !important;
     }
   }
   .jsoneditor-button-group-value-desc {
     input.jsoneditor-button-desc {
-      background: $editor-color !important;
       border-color: $editor-border-color !important;
     }
   }

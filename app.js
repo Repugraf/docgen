@@ -10,7 +10,7 @@ async function main() {
     const app = express();
     const endpointsRoutes = require('./router/endpoints');
 
-    app.use(express.urlencoded());
+    app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(require('cors')());
 

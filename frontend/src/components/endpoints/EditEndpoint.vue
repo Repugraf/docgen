@@ -129,8 +129,16 @@ export default {
   },
   mounted() {
     this.setInitialdata();
-    this.tempRequestBody = this.data.requestBody;
-    this.tempResponseBody = this.data.responseBody;
+    this.tempRequestBody =
+      typeof this.data.requestBody === "object" &&
+      this.data.requestBody !== null
+        ? JSON.parse(JSON.stringify(this.data.requestBody))
+        : this.data.requestBody;
+    this.tempResponseBody =
+      typeof this.data.responseBody === "object" &&
+      this.data.responseBody !== null
+        ? JSON.parse(JSON.stringify(this.data.responseBody))
+        : this.data.responseBody;
   },
   destroyed() {
     this.$store.commit("endpoints/setCurrentEndpoint");
