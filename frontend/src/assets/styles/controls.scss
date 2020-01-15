@@ -5,22 +5,22 @@
   outline: none;
   min-height: 2rem;
   border-radius: 5px;
+  border: 1px solid white;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 3px;
   &:disabled {
     cursor: not-allowed;
-    // filter: grayscale(80%);
     background: lightgrey !important;
   }
   &.btn-submit {
     background: black;
     &:hover {
-      background: rgba(black, 0.9);
+      background: lighten(black, 10);
     }
     &:active {
-      background: rgba(black, 0.8);
+      background: lighten(black, 20);
     }
   }
   &.btn-cancel {

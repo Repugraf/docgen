@@ -75,5 +75,8 @@ export default {
   },
   codesOnly() {
     return this.statusCodes.map(e => e.status);
+  },
+  getOneStatusCode(code) {
+    return this.statusCodes.filter(e => e.status === code)[0];
   }
 }

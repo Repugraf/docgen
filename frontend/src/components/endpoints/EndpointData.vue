@@ -2,28 +2,55 @@
   <div class="endpoint-data">
     <!-- <pre>{{data}}</pre> -->
     <div class="request-body" v-if="data.requestBody">
-      request
-      <pre>{{data.requestBody}}</pre>
+      <div class="field-heading">request</div>
+      <!-- <pre>{{data.requestBody}}</pre> -->
+      <DataVisualiser :data="data.requestBody" />
     </div>
     <div class="response-body" v-if="data.responseBody">
-      response
-      <pre>{{data.responseBody}}</pre>
+      <div class="field-heading">response</div>
+      <!-- <pre>{{data.responseBody}}</pre> -->
+      <div v-for="(item, index) in data.responseBody" :key="index" style="margin-top:1rem">
+        {{`${item.status} - ` + (getStatusCode(item.status)).description}}
+        <DataVisualiser :data="item.data" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import DataVisualiser from "./DataVisualiser";
+import getStatusCodes from "../../util/statusCodesList";
 export default {
-  props: ["data"]
+  props: ["data"],
+  components: {
+    DataVisualiser
+  },
+  methods: {
+    getStatusCode(code) {
+      return getStatusCodes.getOneStatusCode(code)
+    }
+  },
+  created() {}
 };
 </script>
 
 <style lang="scss" scoped>
 .endpoint-data {
+  padding: 1rem;
   pre {
     overflow: auto;
   }
-  .endpoint-data {
+  .field-heading {
+    background: white;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    border: grey 1px solid;
+    border-radius: 4px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.4);
   }
 }
 </style>
