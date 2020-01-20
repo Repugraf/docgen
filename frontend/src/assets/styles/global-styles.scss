@@ -144,11 +144,12 @@ nav.nav-bar {
       padding: 0 1rem;
       text-decoration: none;
       font-family: sans-serif;
-      // @media (min-width: 1220px) {
-      //   &:first-child {
-      //     padding-left: 0;
-      //   }
-      // }
+      &:last-child {
+        margin-left: auto;
+      }
+      div {
+        text-transform: uppercase;
+      }
       &.router-link-exact-active {
         color: white;
       }

@@ -2,10 +2,13 @@
   <nav class="nav-bar">
     <div class="links-container">
       <router-link to="/endpoints" class="router-link">
-        <div>HOME</div>
+        <div>home</div>
       </router-link>
       <router-link to="/about" class="router-link">
-        <div>ABOUT</div>
+        <div>about</div>
+      </router-link>
+      <router-link to="/login" class="router-link">
+        <div>login</div>
       </router-link>
     </div>
   </nav>
