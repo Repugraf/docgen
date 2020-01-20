@@ -17,7 +17,6 @@
       </div>
     </div>
     <div v-if="showMenu" class="endpoint-menu">
-      <!-- <pre>{{data}}</pre> -->
       <EndpointData :data="data"/>
     </div>
   </div>

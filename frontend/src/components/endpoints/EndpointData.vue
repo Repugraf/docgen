@@ -1,14 +1,12 @@
 <template>
   <div class="endpoint-data">
-    <!-- <pre>{{data}}</pre> -->
+    <div style="margin:1rem 0;" v-if="data.description">{{data.description}}</div>
     <div class="request-body" v-if="data.requestBody">
       <div class="field-heading">request</div>
-      <!-- <pre>{{data.requestBody}}</pre> -->
       <DataVisualiser :data="data.requestBody" />
     </div>
     <div class="response-body" v-if="data.responseBody">
       <div class="field-heading">response</div>
-      <!-- <pre>{{data.responseBody}}</pre> -->
       <div v-for="(item, index) in data.responseBody" :key="index" style="margin-top:1rem">
         {{`${item.status} - ` + (getStatusCode(item.status)).description}}
         <DataVisualiser :data="item.data" />
