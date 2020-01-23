@@ -9,6 +9,7 @@ async function main() {
 
     const app = express();
     const endpointsRoutes = require('./router/endpoints');
+    const authRoutes = require('./router/auth');
 
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
@@ -16,6 +17,7 @@ async function main() {
 
     app.use(express.static('./dist'));
 
+    app.use('/api/auth', authRoutes);
     app.use('/api/endpoints', endpointsRoutes);
 
     app.listen(process.env.PORT || 3000);

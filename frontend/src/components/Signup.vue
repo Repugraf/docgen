@@ -38,9 +38,22 @@ export default {
     }
   },
   methods: {
-    submit() {
+    async submit() {
       if(!this.isValid) return;
-      console.log(this.email, this.password, this.name);
+      try {
+        await this.$store.dispatch("auth/signup", this.getFields());
+        this.$router.push('/login');
+      } catch (error) {
+        alert(error);
+      }
+      
+    },
+    getFields() {
+      return {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }
     }
   }
 };

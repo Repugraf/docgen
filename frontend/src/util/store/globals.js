@@ -1,5 +1,6 @@
 const API_URL = window.webpackHotUpdate ? 'http://localhost:3000/api' : '/api'; // is in dev mode
 const endpoints = `${API_URL}/endpoints`;
+const auth = `${API_URL}/auth`;
 
 export default {
   API_URL,
@@ -8,5 +9,7 @@ export default {
   GET_ENDPOINT_URL: `${endpoints}/get`, // GET with :id || POST with filter in body
   UPDATE_ENDPOINT_URL: `${endpoints}/update`, // PATCH with body
   REPLACE_ENDPOINT_URL: `${endpoints}/replace`, // PUT with body
-  DELETE_ENDPOINT_URL: `${endpoints}/delete` // DELETE with :id
+  DELETE_ENDPOINT_URL: `${endpoints}/delete`, // DELETE with :id
+  SIGNUP_URL: `${auth}/signup`,
+  LOGIN_URL: `${auth}/login`
 }

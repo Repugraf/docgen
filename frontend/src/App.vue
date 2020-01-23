@@ -15,6 +15,10 @@ export default {
   components: {
     NavBar,
     ModalHandler
+  },
+  created() {
+    const token = localStorage.getItem('token');
+    if (token) this.$store.commit('auth/setToken', token);
   }
 };
 </script>
