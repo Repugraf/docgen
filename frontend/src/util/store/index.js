@@ -8,12 +8,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    axios: null,
     globals,
     modal: null
   },
   mutations: {
     setModal(state, payload) {
       state.modal = payload;
+    },
+    setAxios(state, payload) {
+      state.axios = payload;
     }
   },
   actions: {

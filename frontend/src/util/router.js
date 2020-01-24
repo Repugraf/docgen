@@ -22,8 +22,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuth = store.getters['auth/isAuthenticated'];
+  const isAuth = localStorage.getItem('token');
   if(!isAuth && to.path !== '/login' && to.path !== '/signup' && to.path !== '/about') {
+    store.commit('auth/setToken', null);
     return next('/login');
   }
   return next();

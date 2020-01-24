@@ -16,6 +16,8 @@ router.post('/signup', async (req, res) => {
     let { name, email, password } = req.body;
     if (!name || !email || !password) return res.status(403).send({ message: 'required fields are not provided!' });
     password = await hash(password);
+    const user = await usersCollection.findOne({ email });
+    if (user) return res.status(400).send({ message: 'user with this email already exists' });
     const result = await usersCollection.insertOne({ name, email, password });
     const insertedId = result.insertedId + '';
     const token = `${uuid()}-${uuid()}-${uuid()}`;

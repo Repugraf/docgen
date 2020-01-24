@@ -15,7 +15,7 @@
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
       <h4>
         Not Registered?
-        <router-link to="/signup">Signup</router-link>instead!
+        <router-link to="/signup">Signup</router-link> instead!
       </h4>
     </form>
   </div>
@@ -23,6 +23,7 @@
 
 <script>
 import { isEmail } from "validator";
+import { getAuthAxios } from "../util/auth";
 export default {
   data() {
     return {
@@ -39,7 +40,11 @@ export default {
     async submit() {
       if (!this.isValid) return;
       await this.$store.dispatch("auth/login", this.getFields());
-      this.$router.push('/');
+      this.$store.commit(
+        "setAxios",
+        getAuthAxios(this.$store.getters[`auth/token`])
+      );
+      this.$router.push("/");
     },
     getFields() {
       return { email: this.email, password: this.password };
