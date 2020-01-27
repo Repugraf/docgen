@@ -23,7 +23,7 @@
 
 <script>
 import { isEmail } from "validator";
-import { getAuthAxios } from "../util/auth";
+import { getAuthAxios } from "../../util/auth";
 export default {
   data() {
     return {

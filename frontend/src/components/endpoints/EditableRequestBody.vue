@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import jsoneditor from "../jsoneditor";
-import texteditor from "../texteditor";
+import jsoneditor from "../editors/jsoneditor";
+import texteditor from "../editors/texteditor";
 export default {
   components: {
     jsoneditor,
@@ -67,7 +67,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-
-</style>

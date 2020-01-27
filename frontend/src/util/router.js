@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import EndpointsContainer from '../components/endpoints/EndpointsContainer'
 import EditEndpointHandler from '../components/endpoints/EditEndpointHandler'
 import About from '../components/About'
-import Login from '../components/Login'
-import Signup from '../components/Signup';
+import Login from '../components/auth/Login'
+import Signup from '../components/auth/Signup';
 import store from '../util/store/index';
 
 Vue.use(VueRouter)

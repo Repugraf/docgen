@@ -23,7 +23,7 @@ router.post('/add', tokenMiddlware, async (req, res) => {
 
 router.get('/get-all', tokenMiddlware, async (req, res) => {
   try {
-    const result = await endpointsCollection.find({ _id: req.user._id }).toArray();
+    const result = await endpointsCollection.find({ user_id: new ObjectID(req.user._id) }).toArray();
     res.send(result);
   } catch (err) {
     console.log(err);

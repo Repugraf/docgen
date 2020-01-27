@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loading/>
     <NavBar />
     <ModalHandler />
     <router-view />
@@ -7,6 +8,7 @@
 </template>
 
 <script>
+import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
 import ModalHandler from "./components/modals/ModalHandler";
 import { getAuthAxios } from "./util/auth";
@@ -15,7 +17,8 @@ export default {
   name: "app",
   components: {
     NavBar,
-    ModalHandler
+    ModalHandler,
+    Loading
   },
   beforeCreate() {
     const token = localStorage.getItem("token");

@@ -17,6 +17,11 @@
         <input type="password" v-model="password"  placeholder="password"/>
         </label>
       </div>
+      <div class="form-field">
+        <label>
+        <input type="password" v-model="repeatPassword"  placeholder="repeat password"/>
+        </label>
+      </div>
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
     </form>
   </div>
@@ -30,11 +35,12 @@ export default {
       name: "",
       email: "",
       password: "",
+      repeatPassword: "",
     };
   },
   computed: {
     isValid() {
-      return isEmail(this.email) && this.password.length >= 5 && this.name.length > 0;
+      return isEmail(this.email) && this.password.length >= 5 && this.name.length > 0 && this.password === this.repeatPassword;
     }
   },
   methods: {

@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import jsoneditor from "../jsoneditor";
-import texteditor from "../texteditor";
+import jsoneditor from "../editors/jsoneditor";
+import texteditor from "../editors/texteditor";
 import statusCodesList from "../../util/statusCodesList";
 
 export default {

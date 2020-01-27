@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     axios: null,
     globals,
-    modal: null
+    modal: null,
+    isLoading: false
   },
   mutations: {
     setModal(state, payload) {
@@ -18,11 +19,15 @@ export default new Vuex.Store({
     },
     setAxios(state, payload) {
       state.axios = payload;
-    }
+    },
+    setIsLoading(state, payload = false) {
+      state.isLoading = payload;
+    } 
   },
   actions: {
   },
   getters: {
+    isLoading: state => !!state.isLoading
   },
   modules: {
     endpoints,
