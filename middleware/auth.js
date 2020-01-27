@@ -1,4 +1,4 @@
-const {ObjectID} = require('mongodb');
+const { ObjectID } = require('mongodb');
 const { getCollection } = require('../util/db');
 const usersCollection = getCollection('users');
 
@@ -12,5 +12,10 @@ exports.tokenMiddlware = async (req, res, next) => {
   if (!user) return res.status(401).send({ message: "no user with this token" })
 
   req.user = user;
+  next();
+}
+
+exports.userIdSanitiser = (req, res, next) => {
+  if (req.body) delete req.body.user_id;
   next();
 }

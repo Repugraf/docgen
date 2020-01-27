@@ -2,12 +2,14 @@ require('dotenv').config();
 
 async function main() {
   try {
-    const express = require('express');
     const { createMongoConnection } = require('./util/db');
-
     await createMongoConnection();
-
+    
+    const express = require('express');
+    
+    
     const app = express();
+    const { userIdSanitiser } = require('./middleware/auth');
     const endpointsRoutes = require('./router/endpoints');
     const authRoutes = require('./router/auth');
 
@@ -17,6 +19,7 @@ async function main() {
 
     app.use(express.static('./dist'));
 
+    app.use(userIdSanitiser);
     app.use('/api/auth', authRoutes);
     app.use('/api/endpoints', endpointsRoutes);
 
