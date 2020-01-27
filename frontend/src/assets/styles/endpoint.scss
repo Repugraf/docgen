@@ -1,0 +1,128 @@
+.endpoint {
+  position: relative;
+  width: 100%;
+  margin: 0.625rem 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.19);
+  border: 1px solid black;
+  border-radius: 4px;
+  .endpoint-heading {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    border-bottom: 1px solid black;
+    &.closed {
+      border: none;
+    }
+    .method {
+      height: 100%;
+      width: 4.7rem;
+      position: relative;
+      border-right: 1px solid black;
+      span {
+        color: white;
+        font-display: sans-serif;
+        font-weight: 700;
+        font-size: 0.875rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .url {
+      margin-left: 0.5rem;
+      letter-spacing: 0.02rem;
+      font-size: 1.1rem;
+    }
+    .icn {
+      width: 1rem;
+      height: 1rem;
+      padding: 0.7rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+
+      &.edit {
+        margin-left: auto;
+      }
+      &:hover {
+        filter: brightness(80%);
+      }
+      &:active {
+        filter: brightness(50%);
+      }
+    }
+    a.edit {
+      margin-left: auto;
+    }
+  }
+  &.get {
+    background: lighten($get-color, 40);//rgba(97, 175, 254, 0.1);
+    border-color: $get-color;
+    .method {
+      background-color: $get-color;
+      border-color: $get-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $get-color;
+    }
+  }
+  &.post {
+    background: lighten($post-color, 40);//rgba(73, 204, 144, 0.1);
+    border-color: $post-color;
+    .method {
+      background-color: $post-color;
+      border-color: $post-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $post-color;
+    }
+  }
+  &.put {
+    background: lighten($put-color, 40); //rgba(252, 161, 48, 0.1);
+    border-color: $put-color;
+    .method {
+      background-color: $put-color;
+      border-color: $put-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $put-color;
+    }
+  }
+  &.patch {
+    background: lighten($patch-color, 40); //rgba(80, 227, 194, 0.1);
+    border-color: $patch-color;
+    .method {
+      background-color: $patch-color;
+      border-color: $patch-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $patch-color;
+    }
+  }
+  &.delete {
+    background: lighten($delete-color, 40); //rgba(249, 62, 62, 0.1);
+    border-color: $delete-color;
+    .method {
+      background-color: $delete-color;
+      border-color: $delete-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $delete-color;
+    }
+  }
+  &.options {
+    background: lighten($options-color, 40);
+    border-color: $options-color;
+    .method {
+      background-color: $options-color;
+      border-color: $options-color;
+    }
+    .endpoint-heading {
+      border-bottom-color: $options-color;
+    }
+  }
+}
