@@ -11,6 +11,11 @@ const { ObjectID } = mongodb;
 const { getCollection } = require('../util/db');
 const usersCollection = getCollection('users');
 
+const getToken = async (email, id) => {
+  const hashedEmailAndId = await hash(email + id + uuid());
+  return `${uuid()}-${hashedEmailAndId}-${uuid()}`;
+}
+
 router.post('/signup', async (req, res) => {
   try {
     let { name, email, password } = req.body;
@@ -19,8 +24,9 @@ router.post('/signup', async (req, res) => {
     const user = await usersCollection.findOne({ email });
     if (user) return res.status(400).send({ message: 'user with this email already exists' });
     const result = await usersCollection.insertOne({ name, email, password });
+    const newUser = result.ops[0];
     const insertedId = result.insertedId + '';
-    const token = `${uuid()}-${uuid()}-${uuid()}`;
+    const token = await getToken(newUser.email + newUser._id);
     await usersCollection.updateOne({ _id: ObjectID(insertedId) }, { $set: { token } });
     res.status(201).json({ message: "user added successfuly" });
   } catch (err) {
@@ -39,10 +45,10 @@ router.post('/login', async (req, res) => {
     if (!passwordIsValid) return res.status(401).send({ message: 'wrong password' });
     let token = user.token;
     if (!token) {
-      token = `${uuid()}-${uuid()}-${uuid()}`;
+      token = await getToken(user.email + user._id);
       await usersCollection.updateOne({ email }, { $set: { token } })
     }
-    res.status(200).send({ token: user.token })
+    res.status(200).send({ token })
 
   } catch (err) {
     console.log(err);
