@@ -2,6 +2,7 @@ const express = require('express');
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const hash = require('../util/hash');
+const { signupValidator, loginValidator } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -16,10 +17,9 @@ const getToken = async (email, id) => {
   return `${uuid()}-${hashedEmailAndId}-${uuid()}`;
 }
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', signupValidator, async (req, res) => {
   try {
     let { name, email, password } = req.body;
-    if (!name || !email || !password) return res.status(403).send({ message: 'required fields are not provided!' });
     password = await hash(password);
     const user = await usersCollection.findOne({ email });
     if (user) return res.status(400).send({ message: 'user with this email already exists' });
@@ -35,10 +35,9 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', loginValidator, async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) return res.status(403).send({ message: 'required fields are not provided!' });
     const user = await usersCollection.findOne({ email });
     if (!user) return res.status(401).send({ message: 'user with this email was not found in the system' });
     const passwordIsValid = bcrypt.compare(password, user.password);
