@@ -10,7 +10,7 @@ const createMongoConnection = async () => {
       console.log('connected to database!');
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -19,7 +19,7 @@ const getMongoConnection = async () => {
     await createMongoConnection();
     return mongoConnection;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -28,7 +28,7 @@ const closeMongoConnection = async () => {
     client.close();
     mongoConnection = null;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -41,7 +41,7 @@ const getDatabase = db => {
     if (db) return mongoConnection.db(db);
     return mongoConnection.db();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -61,7 +61,7 @@ const getCollection = (collection, db) => {
 
     return database.collection(collection);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 

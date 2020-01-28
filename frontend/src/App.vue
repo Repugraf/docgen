@@ -23,7 +23,6 @@ export default {
   beforeCreate() {
     const token = localStorage.getItem("token");
     if (token) {
-      console.log(1)
       this.$store.commit("auth/setToken", token);
       this.$store.commit("setAxios", getAuthAxios(token));
     }

@@ -30,7 +30,7 @@ router.post('/signup', signupValidator, async (req, res) => {
     await usersCollection.updateOne({ _id: ObjectID(insertedId) }, { $set: { token } });
     res.status(201).json({ message: "user added successfuly" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send(err);
   }
 });
@@ -50,7 +50,7 @@ router.post('/login', loginValidator, async (req, res) => {
     res.status(200).send({ token })
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send(err);
   }
 })
