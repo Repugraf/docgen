@@ -2,7 +2,7 @@
   <div>
     <div class="editable-field-heading-container">
       <h2>Request Body</h2>
-      <select v-if="data !== null && data !== undefined && component" v-model="component" class="type">
+      <select v-if="data !== null && data !== undefined && component" v-model="component" class="type custom-select">
         <option value="jsoneditor">application/json</option>
         <option value="texteditor">text/plain</option>
       </select>

@@ -4,22 +4,22 @@
       <h2>Signup</h2>
       <div class="form-field">
         <label>
-        <input type="text" v-model="name"  placeholder="name"/>
+        <input type="text" v-model="name"  placeholder="name" class="custom-input"/>
         </label>
       </div>
       <div class="form-field">
         <label>
-        <input type="text" v-model="email"  placeholder="email"/>
+        <input type="text" v-model="email"  placeholder="email" class="custom-input"/>
         </label>
       </div>
       <div class="form-field">
         <label>
-        <input type="password" v-model="password"  placeholder="password"/>
+        <input type="password" v-model="password"  placeholder="password" class="custom-input"/>
         </label>
       </div>
       <div class="form-field">
         <label>
-        <input type="password" v-model="repeatPassword"  placeholder="repeat password"/>
+        <input type="password" v-model="repeatPassword"  placeholder="repeat password" class="custom-input"/>
         </label>
       </div>
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
@@ -80,6 +80,8 @@ export default {
     }
     input {
       width: 100%;
+      height: 2.5rem;
+      border-radius: 4px;
     }
   }
 }

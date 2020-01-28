@@ -1,16 +1,16 @@
 <template>
     <form class="add-endpoint" @submit.prevent="onSubmit">
       <label>
-        <select v-model="method" ref="select">
+        <select v-model="method" ref="select" class="custom-select">
           <option value hidden>--Select method--</option>
           <option v-for="i of options" :key="i" :value="i">{{i}}</option>
         </select>
       </label>
       <label>
-        <input type="text" placeholder="Url" v-model="url" />
+        <input type="text" placeholder="Url" v-model="url" class="custom-input" />
       </label>
       <label>
-        <textarea v-model="description" placeholder="Description"></textarea>
+        <textarea v-model="description" placeholder="Description" class="custom-input"></textarea>
       </label>
       <div class="controlls-container">
         <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>

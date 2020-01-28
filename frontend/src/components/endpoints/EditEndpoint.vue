@@ -1,14 +1,14 @@
 <template>
   <div class="edit-endpoint-container">
     <div class="heading">
-      <select v-model="tempMethod">
+      <select v-model="tempMethod" class="custom-select">
         <option v-for="i of methodOptions" :value="i" :key="i">{{i}}</option>
       </select>
-      <input type="text" v-model="tempUrl" />
+      <input type="text" v-model="tempUrl" class="custom-input" style="border-left:none;"/>
     </div>
     <div class="descrition">
       <h2>Description</h2>
-      <textarea v-model="tempDescription" placeholder="Describe this endpoint"></textarea>
+      <textarea v-model="tempDescription" placeholder="Describe this endpoint" class="custom-input"></textarea>
     </div>
     <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody" />
     <EditableResponseBody v-model="tempResponseBody" />

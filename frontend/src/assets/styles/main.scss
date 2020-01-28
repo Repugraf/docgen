@@ -1,8 +1,15 @@
+html {
+  @media (max-width: 600px) {
+    font-size: 0.7rem;
+  }
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  box-sizing: border-box;
 }
+
 
 @import "./globals.scss";
 @import "./global-styles.scss";

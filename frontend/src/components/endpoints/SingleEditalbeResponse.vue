@@ -1,10 +1,10 @@
 <template>
   <div class="editable-field-container">
     <div class="editable-field-heading-container response-field-heading">
-      <select v-model="item.status">
+      <select v-model="item.status" class="custom-select">
         <option v-for="i of codeOptions" :value="i.status" :key="i.status">{{`${i.status} - ${i.description}`}}</option>
       </select>
-      <select v-if="item.data !== undefined && item.data !== null && component" v-model="component" class="type">
+      <select v-if="item.data !== undefined && item.data !== null && component" v-model="component" class="type custom-select">
         <option value="jsoneditor">application/json</option>
         <option value="texteditor">text/plain</option>
       </select>

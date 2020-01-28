@@ -1,7 +1,7 @@
 <template>
   <div>
-    <textarea v-model="data"></textarea>
-    <button class="btn btn-cancel" style="border-radius: 0;" @click="deleteField">Delete Field</button>
+    <textarea v-model="data" class="custom-input"></textarea>
+    <button class="btn btn-cancel" @click="deleteField">Delete Field</button>
   </div>
 </template>
 
@@ -30,12 +30,19 @@ export default {
 
 <style lang="scss" scoped>
 div {
+  border: 1px solid black;
   textarea {
     box-sizing: border-box;
     margin: 0;
     resize: none;
     width: 100%;
     min-height: 7rem;
+    border: none;
+  }
+  button {
+    border-radius: 0;
+    margin-top: -4px;
+    border-top: 1px solid black;
   }
 }
 </style>
