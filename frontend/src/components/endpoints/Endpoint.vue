@@ -1,10 +1,10 @@
 <template>
   <div class="endpoint" :class="data.method.toLowerCase()">
     <div class="endpoint-heading" :class="{closed:!showMenu}" @click.self="showMenu=!showMenu">
-      <div class="method">
+      <div class="method" @click="showMenu=!showMenu">
         <span>{{data.method}}</span>
       </div>
-      <div class="url">
+      <div class="url" @click="showMenu=!showMenu">
         <span>{{data.url}}</span>
       </div>
       <router-link class="edit" v-if="!editMode" :to="`/endpoint/${data._id}`">
