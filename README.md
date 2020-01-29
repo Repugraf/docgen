@@ -8,7 +8,7 @@
     <code>sudo systemctl enable mongodb</code> || <i>to make mongodb server run on startup</i>
   </li>
   <li>
-    <code>sudo service mongod start</code> || <i>to start mongodb server</i>
+    <code>sudo service mongodb start</code> || <i>to start mongodb server (if not started)</i>
   </li>
 </ul>
 <p>2. Install all dependencies (frontend and backend) by running <code>npm run install-all</code></p>
