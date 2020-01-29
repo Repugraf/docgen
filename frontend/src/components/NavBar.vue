@@ -4,6 +4,9 @@
       <router-link to="/endpoints" class="router-link">
         <div>home</div>
       </router-link>
+      <router-link to="/projects" class="router-link" v-if="isAuth">
+        <div>projects</div>
+      </router-link>
       <router-link to="/about" class="router-link">
         <div>about</div>
       </router-link>

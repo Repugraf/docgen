@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-endpoint-container">
+  <div class="edit-endpoint-container page-container">
     <div class="heading">
       <select v-model="tempMethod" class="custom-select">
         <option v-for="i of methodOptions" :value="i" :key="i">{{i}}</option>
