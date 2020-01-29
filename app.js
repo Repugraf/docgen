@@ -7,11 +7,11 @@ async function main() {
 
     const express = require('express');
 
-
     const app = express();
     const { userIdSanitiser } = require('./middleware/auth');
-    const endpointsRoutes = require('./router/endpoints');
     const authRoutes = require('./router/auth');
+    const endpointsRoutes = require('./router/endpoints');
+    const projectsRoutes = require('./router/projects');
 
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
@@ -22,6 +22,7 @@ async function main() {
     app.use(userIdSanitiser);
     app.use('/api/auth', authRoutes);
     app.use('/api/endpoints', endpointsRoutes);
+    app.use('/api/projects', projectsRoutes);
 
     app.use((req, res) => res.sendFile(`${__dirname}/dist/index.html`));
 

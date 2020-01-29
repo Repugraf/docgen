@@ -31,6 +31,24 @@ router.get('/get-all', tokenMiddlware, async (req, res) => {
   }
 });
 
+router.get('/get-all/:id', tokenMiddlware, async (req, res) => {
+  try {
+    const projectId = req.url.id;
+    const result = await endpointsCollection.find(
+      {
+        $and: [
+          { user_id: new ObjectID(req.user._id) },
+          { project_id: new ObjectID(projectId) }
+        ]
+      })
+      .toArray();
+    res.status(200).json(result)
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+})
+
 router.get('/get/:id', tokenMiddlware, async (req, res) => {
   try {
     const { id } = req.params;

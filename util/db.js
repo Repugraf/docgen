@@ -32,6 +32,8 @@ const closeMongoConnection = async () => {
   }
 }
 
+const getSession = () => client.startSession();
+
 /**
  * 
  * @param {string} [db] - db name. optional 
@@ -69,6 +71,7 @@ module.exports = {
   createMongoConnection,
   getMongoConnection,
   closeMongoConnection,
+  getSession,
   getDatabase,
   getCollection
 }
