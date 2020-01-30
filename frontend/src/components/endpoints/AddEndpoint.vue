@@ -1,5 +1,5 @@
 <template>
-    <form class="add-endpoint" @submit.prevent="onSubmit">
+    <form class="modal-form" @submit.prevent="submit">
       <label>
         <select v-model="method" ref="select" class="custom-select">
           <option value hidden>--Select method--</option>
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
+    async submit() {
       if (!this.isValid) return;
       const payload = {
         method: this.method,

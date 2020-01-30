@@ -4,11 +4,13 @@
 
 <script>
 import Modal from "./Modal";
+import CreateProjectModal from "./CreateProjectModal";
 import CreateEndpointModal from "./CreateEndpointModal";
 
 export default {
   components: {
     Modal,
+    CreateProjectModal,
     CreateEndpointModal
   },
   computed: {

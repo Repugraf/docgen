@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import globals from './globals'
+import projects from './modules/projects'
 import endpoints from './modules/endpoints'
 import auth from './modules/auth'
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     isLoading: state => !!state.isLoading
   },
   modules: {
+    projects,
     endpoints,
     auth
   }

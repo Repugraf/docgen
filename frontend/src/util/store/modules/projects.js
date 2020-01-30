@@ -17,7 +17,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         const projects = await rootState.axios.get(rootState.globals.GET_ALL_PROJECTS_URL);
-        commit('setProjects', projects);
+        commit('setProjects', projects.data);
         commit('setIsLoading', false, { root: true });
       } catch (error) {
         commit('setIsLoading', false, { root: true });
@@ -27,7 +27,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         const project = await rootState.axios.get(`${rootState.globals.GET_PROJECT_URL}/${id}`);
-        commit('setCurrentProject', project);
+        commit('setCurrentProject', project.data);
         commit('setIsLoading', false, { root: true });
       } catch (error) {
         commit('setIsLoading', false, { root: true });
@@ -42,7 +42,7 @@ export default {
         commit('setIsLoading', false, { root: true });
       }
     },
-    async updateProject({ rootState }, payload) {
+    async updateProject({ rootState, commit }, payload) {
       try {
         commit('setIsLoading', true, { root: true });
         rootState.axios.patch(rootState.globals.UPDATE_PROJECT_URL, payload);
@@ -51,7 +51,7 @@ export default {
         commit('setIsLoading', false, { root: true });
       }
     },
-    async replaceProject({ rootState }, payload) {
+    async replaceProject({ rootState, commit }, payload) {
       try {
         commit('setIsLoading', true, { root: true });
         rootState.axios.put(rootState.globals.REPLACE_PROJECT_URL, payload);
