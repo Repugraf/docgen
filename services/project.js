@@ -6,7 +6,6 @@ const endpointsCollection = getCollection('endpoints');
 
 exports.deleteProject = async (projectId, user) => {
   const session = getSession();
-  projectId = new ObjectID(projectId);
 
   const transactionOptions = {
     readPreference: 'primary',

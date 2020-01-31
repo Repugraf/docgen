@@ -4,8 +4,13 @@
       <input type="text" placeholder="Name" v-model="name" class="custom-input" />
     </label>
     <label>
-        <textarea v-model="description" placeholder="Description" class="custom-input" style="height: 7rem;"></textarea>
-      </label>
+      <textarea
+        v-model="description"
+        placeholder="Description"
+        class="custom-input"
+        style="height: 7rem;"
+      ></textarea>
+    </label>
     <div class="controlls-container">
       <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
@@ -34,8 +39,8 @@ export default {
       const payload = {
         name: this.name,
         description: this.description
-      }
-      await this.$store.dispatch('projects/createProject', payload);
+      };
+      await this.$store.dispatch("projects/createProject", payload);
       await this.$store.dispatch("projects/getProjects");
       this.closeModal();
     }

@@ -17,7 +17,11 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch("endpoints/getEndpoints");
+    if (this.$route.params.id)
+      await this.$store.dispatch("endpoints/getEndpointsByFilter", {
+        project_id: this.$route.params.id
+      });
+    else await this.$store.dispatch("endpoints/getEndpoints");
   }
 };
 </script>

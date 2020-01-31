@@ -37,6 +37,10 @@ nav.nav-bar {
       display: flex;
       align-items: center;
       justify-content: center;
+      // white-space: nowrap;
+      // box-sizing: border-box;
+      // max-width: 20%;
+      // overflow: hidden;
       @media (max-width: 400px) {
         font-size: 1.2rem;
       }
@@ -46,6 +50,9 @@ nav.nav-bar {
       }
       div {
         text-transform: uppercase;
+        // text-overflow: ellipsis;
+        // overflow: hidden;
+        // width: 100%;
       }
       &.router-link-exact-active {
         color: white;

@@ -4,7 +4,7 @@
       <select v-model="tempMethod" class="custom-select">
         <option v-for="i of methodOptions" :value="i" :key="i">{{i}}</option>
       </select>
-      <input type="text" v-model="tempUrl" class="custom-input" style="border-left:none;"/>
+      <input type="text" v-model="tempUrl" class="custom-input" style="border-left:none;" />
     </div>
     <div class="descrition">
       <h2>Description</h2>
@@ -121,6 +121,8 @@ export default {
     async deleteEndpoint(id) {
       if (!id) return;
       await this.$store.dispatch("endpoints/deleteEndpoint", id);
+      if (this.data.project_id)
+        return this.$router.push(`/project/${this.data.project_id}`);
       this.$router.push("/endpoints");
     },
     openConfirmDeleteModal() {

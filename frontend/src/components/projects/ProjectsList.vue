@@ -1,14 +1,15 @@
 <template>
-  <div v-if="projects">
+  <div v-if="projects" class="projects-list-container">
     <div
       v-for="item of projects"
       :key="item._id"
-      @click="setCurrentProject(item)"
       style="cursor:pointer;"
     >
-      <span style="color: blue;">{{item.name}}</span>
+      <router-link :to="`/project/${item._id}`">
+        <h3>{{item.name}}</h3>
+      </router-link>
     </div>
-    <pre>{{projects}}</pre>
+    <!-- <pre>{{projects}}</pre> -->
   </div>
 </template>
 
@@ -28,5 +29,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.projects-list-container {
+  margin: 2rem 0;
+}
 </style>

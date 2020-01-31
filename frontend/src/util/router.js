@@ -2,18 +2,20 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../util/store/index'
 import ProjectsContainer from '../components/projects/ProjectsContainer'
+import Project from '../components/projects/Project'
 import EndpointsContainer from '../components/endpoints/EndpointsContainer'
 import EditEndpointHandler from '../components/endpoints/EditEndpointHandler'
 import About from '../components/About'
 import Login from '../components/auth/Login'
-import Signup from '../components/auth/Signup';
+import Signup from '../components/auth/Signup'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
-    { path: '/', redirect: '/endpoints' },
+    { path: '/', redirect: '/projects' },
     { path: '/projects', component: ProjectsContainer },
+    { path: '/project/:id', component: Project },
     { path: '/endpoints', component: EndpointsContainer },
     { path: '/endpoint/:id', component: EditEndpointHandler },
     { path: '/about', component: About },

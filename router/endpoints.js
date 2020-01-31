@@ -12,6 +12,7 @@ const { tokenMiddlware } = require('../middleware/auth');
 router.post('/add', tokenMiddlware, async (req, res) => {
   try {
     const body = req.body;
+    // if (body.project_id) body.project_id = new ObjectID(body.project_id);
     const result = await endpointsCollection.insertOne({ ...body, user_id: req.user._id });
     const { insertedId } = result;
     res.status(201).json({ message: "endpoint inserted successfuly", insertedId });
@@ -23,7 +24,7 @@ router.post('/add', tokenMiddlware, async (req, res) => {
 
 router.get('/get-all', tokenMiddlware, async (req, res) => {
   try {
-    const result = await endpointsCollection.find({ user_id: new ObjectID(req.user._id) }).toArray();
+    const result = await endpointsCollection.find({ user_id: req.user._id }).toArray();
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -33,12 +34,12 @@ router.get('/get-all', tokenMiddlware, async (req, res) => {
 
 router.get('/get-all/:id', tokenMiddlware, async (req, res) => {
   try {
-    const projectId = req.url.id;
+    const projectId = new ObjectID(req.params.id);
     const result = await endpointsCollection.find(
       {
         $and: [
-          { user_id: new ObjectID(req.user._id) },
-          { project_id: new ObjectID(projectId) }
+          { user_id: req.user._id },
+          { project_id: projectId }
         ]
       })
       .toArray();
@@ -51,8 +52,8 @@ router.get('/get-all/:id', tokenMiddlware, async (req, res) => {
 
 router.get('/get/:id', tokenMiddlware, async (req, res) => {
   try {
-    const { id } = req.params;
-    const result = await endpointsCollection.findOne({ $and: [{ user_id: req.user._id }, { _id: new ObjectID((`${id}`)) }] });
+    const _id  = new ObjectID(req.params.id);
+    const result = await endpointsCollection.findOne({ $and: [{ user_id: req.user._id }, { _id }] });
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -74,9 +75,9 @@ router.post('/get', tokenMiddlware, async (req, res) => {
 router.patch('/update', tokenMiddlware, async (req, res) => {
   try {
     const { body } = req;
-    const id = new ObjectID(body._id);
+    const _id = body._id;
     delete body._id;
-    await endpointsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id: id }] }, { $set: body });
+    await endpointsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id }] }, { $set: body });
     res.json({ message: "updated successfully" });
   } catch (err) {
     console.error(err);
@@ -88,9 +89,8 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
   try {
     const { body } = req;
     if (!body._id) return res.status(403).json({ message: "_id is not provided!" });
-    const id = new ObjectID(body._id);
-    body._id = id;
-    await endpointsCollection.replaceOne({ $and: [{ user_id: req.user._id }, { _id: id }] }, { ...body, user_id: req.user._id });
+    const _id = body._id;
+    await endpointsCollection.replaceOne({ $and: [{ user_id: req.user._id }, { _id }] }, { ...body, user_id: req.user._id });
     res.json({ message: "replaced successfully" });
   } catch (err) {
     console.error(err);
@@ -100,8 +100,8 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
 
 router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
   try {
-    const { id } = req.params;
-    const _id = new ObjectID(`${id}`);
+    const _id  = new ObjectID(req.params.id);
+    console.log(_id)
     await endpointsCollection.deleteOne({ $and: [{ user_id: req.user._id }, { _id }] });
     res.json({ message: "deleted successfuly" });
   } catch (err) {

@@ -25,6 +25,16 @@ export default {
         commit('setIsLoading', false, { root: true });
       }
     },
+    async getEndpointsByFilter({ rootState, commit }, payload) {
+      try {
+        commit('setIsLoading', true, { root: true });
+        const endpoint = await rootState.axios.post(`${rootState.globals.GET_ENDPOINT_URL}`, payload);
+        commit('setEndpoints', endpoint.data);
+        commit('setIsLoading', false, { root: true });
+      } catch (error) {
+        commit('setIsLoading', false, { root: true });
+      }
+    },
     async addEndpoint({ rootState, commit }, payload) {
       try {
         commit('setIsLoading', true, { root: true });

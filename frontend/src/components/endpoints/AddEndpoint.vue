@@ -1,22 +1,22 @@
 <template>
-    <form class="modal-form" @submit.prevent="submit">
-      <label>
-        <select v-model="method" ref="select" class="custom-select">
-          <option value hidden>--Select method--</option>
-          <option v-for="i of options" :key="i" :value="i">{{i}}</option>
-        </select>
-      </label>
-      <label>
-        <input type="text" placeholder="Url" v-model="url" class="custom-input" />
-      </label>
-      <label>
-        <textarea v-model="description" placeholder="Description" class="custom-input"></textarea>
-      </label>
-      <div class="controlls-container">
-        <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>
-        <button class="btn btn-submit" :disabled="!isValid">submit</button>
-      </div>
-    </form>
+  <form class="modal-form" @submit.prevent="submit">
+    <label>
+      <select v-model="method" ref="select" class="custom-select">
+        <option value hidden>--Select method--</option>
+        <option v-for="i of options" :key="i" :value="i">{{i}}</option>
+      </select>
+    </label>
+    <label>
+      <input type="text" placeholder="Url" v-model="url" class="custom-input" />
+    </label>
+    <label>
+      <textarea v-model="description" placeholder="Description" class="custom-input"></textarea>
+    </label>
+    <div class="controlls-container">
+      <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>
+      <button class="btn btn-submit" :disabled="!isValid">submit</button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -47,9 +47,14 @@ export default {
         url: this.url,
         description: this.description
       };
-      if (!this.description) delete payload.description;
+      if (this.$route.params.id) payload.project_id = this.$route.params.id;
+      // if (!this.description) delete payload.description;
       await this.$store.dispatch("endpoints/addEndpoint", payload);
-      await this.$store.dispatch("endpoints/getEndpoints");
+      if (this.$route.params.id)
+        await this.$store.dispatch("endpoints/getEndpointsByFilter", {
+          project_id: this.$route.params.id
+        });
+      else await this.$store.dispatch("endpoints/getEndpoints");
       this.clearInputs();
       this.closeModal();
     },

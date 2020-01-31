@@ -46,10 +46,9 @@ router.post('/create', tokenMiddlware, async (req, res) => {
 router.patch('/update', tokenMiddlware, async (req, res) => {
   try {
     const { body } = req;
-    const id = new ObjectID(body._id);
+    const _id = body._id;
     delete body._id;
-    delete body.user_id
-    await projectsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id: id }] }, { $set: body })
+    await projectsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id }] }, { $set: body })
     res.json({ message: "updated successfully" });
   } catch (error) {
     console.error(err);
@@ -60,9 +59,8 @@ router.patch('/update', tokenMiddlware, async (req, res) => {
 router.put('/replace', tokenMiddlware, async (req, res) => {
   try {
     const { body } = req;
-    const id = new ObjectID(body._id);
-    delete body._id;
-    await projectsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id: id }] }, { ...body, user_id: req.user._id })
+    const _id = body._id;
+    await projectsCollection.replaceOne({ $and: [{ user_id: req.user._id }, { _id }] }, { ...body, user_id: req.user._id })
     res.json({ message: "replaced successfully" });
   } catch (error) {
     console.error(err);
@@ -72,7 +70,7 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
 
 router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
   try {
-    const projectId = req.params.id;
+    const projectId = new ObjectID(req.params.id)
     await deleteProject(projectId, req.user);
     res.status(200).json({ message: 'project was deleted' });
   } catch (error) {
