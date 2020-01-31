@@ -101,7 +101,6 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
 router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
   try {
     const _id  = new ObjectID(req.params.id);
-    console.log(_id)
     await endpointsCollection.deleteOne({ $and: [{ user_id: req.user._id }, { _id }] });
     res.json({ message: "deleted successfuly" });
   } catch (err) {
