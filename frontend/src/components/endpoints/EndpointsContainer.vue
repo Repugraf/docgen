@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container">
+  <div>
     <EndpointsList />
     <button
       class="btn btn-submit"

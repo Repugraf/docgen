@@ -1,6 +1,10 @@
 <template>
   <div class="page-container">
     <pre>{{currentProject}}</pre>
+    <div>
+      <h1>{{currentProject.name}}</h1>
+      <p>{{currentProject.description}}</p>
+    </div>
     <EndpointsContainer />
   </div>
 </template>
@@ -22,5 +26,5 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>

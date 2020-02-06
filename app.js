@@ -13,6 +13,7 @@ async function main() {
     const authRoutes = require('./router/auth');
     const endpointsRoutes = require('./router/endpoints');
     const projectsRoutes = require('./router/projects');
+    const publicRoutes = require('./router/public');
 
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
@@ -25,6 +26,7 @@ async function main() {
     app.use('/api/auth', authRoutes);
     app.use('/api/endpoints', endpointsRoutes);
     app.use('/api/projects', projectsRoutes);
+    app.use('/api/public', publicRoutes);
 
     app.use((req, res) => res.sendFile(`${__dirname}/dist/index.html`));
 

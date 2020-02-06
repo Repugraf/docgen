@@ -28,3 +28,11 @@ exports.deleteProject = async (projectId, user) => {
     await session.endSession();
   }
 }
+
+exports.getPublicProject = async (projectId) => {
+  const project = await projectsCollection.findOne({ _id: projectId });
+  if (!project) return null;
+  const endpoints = await endpointsCollection.find({ project_id: project._id, user_id: project.user_id }).toArray();
+  project.endpoints = endpoints;
+  return project;
+}

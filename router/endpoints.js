@@ -12,7 +12,7 @@ const { tokenMiddlware } = require('../middleware/auth');
 router.post('/add', tokenMiddlware, async (req, res) => {
   try {
     const body = req.body;
-    // if (body.project_id) body.project_id = new ObjectID(body.project_id);
+    if (!body.project_id) return res.status(400).json({ message: "project_id is required" });
     const result = await endpointsCollection.insertOne({ ...body, user_id: req.user._id });
     const { insertedId } = result;
     res.status(201).json({ message: "endpoint inserted successfuly", insertedId });
@@ -52,7 +52,7 @@ router.get('/get-all/:id', tokenMiddlware, async (req, res) => {
 
 router.get('/get/:id', tokenMiddlware, async (req, res) => {
   try {
-    const _id  = new ObjectID(req.params.id);
+    const _id = new ObjectID(req.params.id);
     const result = await endpointsCollection.findOne({ $and: [{ user_id: req.user._id }, { _id }] });
     res.send(result);
   } catch (err) {
@@ -89,6 +89,7 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
   try {
     const { body } = req;
     if (!body._id) return res.status(403).json({ message: "_id is not provided!" });
+    if (!body.project_id) return res.status(400).json({ message: "project_id is required" });
     const _id = body._id;
     await endpointsCollection.replaceOne({ $and: [{ user_id: req.user._id }, { _id }] }, { ...body, user_id: req.user._id });
     res.json({ message: "replaced successfully" });
@@ -100,7 +101,7 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
 
 router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
   try {
-    const _id  = new ObjectID(req.params.id);
+    const _id = new ObjectID(req.params.id);
     await endpointsCollection.deleteOne({ $and: [{ user_id: req.user._id }, { _id }] });
     res.json({ message: "deleted successfuly" });
   } catch (err) {
