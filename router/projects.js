@@ -48,7 +48,7 @@ router.patch('/update', tokenMiddlware, async (req, res) => {
     const { body } = req;
     const _id = body._id;
     delete body._id;
-    await projectsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id }] }, { $set: body })
+    await projectsCollection.updateOne({ $and: [{ user_id: req.user._id }, { _id }] }, { $set: body });
     res.json({ message: "updated successfully" });
   } catch (error) {
     console.error(err);

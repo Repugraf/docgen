@@ -13,7 +13,7 @@ const { getCollection } = require('../util/db');
 const usersCollection = getCollection('users');
 
 const getToken = async (email, id) => {
-  const hashedEmailAndId = await hash(email + id + uuid());
+  const hashedEmailAndId = await hash(email + id + Date.now() + uuid());
   return `${uuid()}-${hashedEmailAndId}-${uuid()}`;
 }
 

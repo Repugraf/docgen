@@ -23,6 +23,15 @@
       background: lighten(black, 20);
     }
   }
+  &.btn-submit2 {
+    background: rgb(2, 2, 167);
+    &:hover {
+      filter: brightness(90%);
+    }
+    &:active {
+      filter: brightness(80%);
+    }
+  }
   &.btn-cancel {
     background: rgb(170, 0, 0);
     &:hover {
