@@ -8,6 +8,7 @@ import EditEndpointHandler from '../components/endpoints/EditEndpointHandler'
 import About from '../components/About'
 import Login from '../components/auth/Login'
 import Signup from '../components/auth/Signup'
+import PublicProject from '../components/public/PublicProject'
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,8 @@ const router = new VueRouter({
     { path: '/endpoint/:id', component: EditEndpointHandler },
     { path: '/about', component: About },
     { path: '/login', component: Login },
-    { path: '/signup', component: Signup }
+    { path: '/signup', component: Signup },
+    { path: '/public/:id', component: PublicProject, name: "public" }
   ],
   mode: 'history'
 });

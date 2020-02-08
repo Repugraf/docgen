@@ -4,6 +4,7 @@ import globals from './globals'
 import projects from './modules/projects'
 import endpoints from './modules/endpoints'
 import auth from './modules/auth'
+import _public from './modules/public'
 
 Vue.use(Vuex)
 
@@ -23,7 +24,7 @@ export default new Vuex.Store({
     },
     setIsLoading(state, payload = false) {
       state.isLoading = payload;
-    } 
+    }
   },
   actions: {
   },
@@ -33,6 +34,7 @@ export default new Vuex.Store({
   modules: {
     projects,
     endpoints,
-    auth
+    auth,
+    public: _public
   }
 })

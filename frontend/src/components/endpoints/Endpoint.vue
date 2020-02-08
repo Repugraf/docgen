@@ -7,12 +7,12 @@
       <div class="url" @click="showMenu=!showMenu">
         <span>{{data.url}}</span>
       </div>
-      <router-link class="edit" v-if="!editMode" :to="`/endpoint/${data._id}`">
+      <router-link class="edit" v-if="!editMode && !isPublic" :to="`/endpoint/${data._id}`">
         <div class="icn">
           <Edit />
         </div>
       </router-link>
-      <div class="icn" :class="{edit: editMode}" @click="openConfirmDeleteModal">
+      <div class="icn" :class="{edit: editMode}" @click="openConfirmDeleteModal" v-if="!isPublic">
         <Cross color="red" />
       </div>
     </div>
@@ -37,6 +37,11 @@ export default {
     return {
       showMenu: false
     };
+  },
+  computed: {
+    isPublic() {
+      return this.$route.name === "public";
+    }
   },
   methods: {
     async deleteEndpoint(id) {

@@ -13,15 +13,26 @@ export default {
   },
   computed: {
     endpoints() {
+      if (this.isPublic)
+        return (
+          (this.$store.state.public.publicProject &&
+            this.$store.state.public.publicProject.endpoints) ||
+          []
+        );
       return this.$store.state.endpoints.endpointsList;
+    },
+    isPublic() {
+      return this.$route.name === "public";
     }
   },
-  async created() {
-    if (this.$route.params.id)
-      await this.$store.dispatch("endpoints/getEndpointsByFilter", {
-        project_id: this.$route.params.id
-      });
-    else await this.$store.dispatch("endpoints/getEndpoints");
+  async beforeMount() {
+    if (!this.isPublic) {
+      if (this.$route.params.id)
+        await this.$store.dispatch("endpoints/getEndpointsByFilter", {
+          project_id: this.$route.params.id
+        });
+      else await this.$store.dispatch("endpoints/getEndpoints");
+    }
   }
 };
 </script>

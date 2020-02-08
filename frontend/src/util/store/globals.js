@@ -21,5 +21,7 @@ export default {
   DELETE_ENDPOINT_URL: `${endpoints}/delete`, // DELETE with :id
   // AUTH //
   SIGNUP_URL: `${auth}/signup`, // POST
-  LOGIN_URL: `${auth}/login` // POST
+  LOGIN_URL: `${auth}/login`, // POST
+  // PUBLIC //
+  GET_PUBLIC_PROJECT_URL: `${API_URL}/public` // GET with :id
 }
