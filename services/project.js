@@ -1,32 +1,31 @@
-const mongodb = require('mongodb');
-const { ObjectID } = mongodb;
-const { getCollection, getSession } = require('../util/db');
+const { getCollection, /* getSession */ } = require('../util/db');
 const projectsCollection = getCollection('projects');
 const endpointsCollection = getCollection('endpoints');
 
 exports.deleteProject = async (projectId, user) => {
-  const session = getSession();
+  // !!!this works only with replica sets!!!!
+  // const session = getSession();
 
-  const transactionOptions = {
-    readPreference: 'primary',
-    readConcern: { level: 'local' },
-    writeConcern: { w: 'majority' }
-  };
+  // const transactionOptions = {
+  //   readPreference: 'primary',
+  //   readConcern: { level: 'local' },
+  //   writeConcern: { w: 'majority' }
+  // };
 
-  try {
-    await session.withTransaction(async () => {
+  // try {
+    // await session.withTransaction(async () => {
       await projectsCollection.deleteOne(
-        { $and: [{ user_id: user.id }, { _id: projectId }] },
-        { session }
+        { $and: [{ user_id: user._id }, { _id: projectId }] },
+        // { session }
       );
       await endpointsCollection.deleteMany(
-        { $and: [{ user_id: user.id }, { project_id: projectId }] },
-        { session }
+        { $and: [{ user_id: user._id }, { project_id: projectId }] },
+        // { session }
       );
-    }, transactionOptions);
-  } finally {
-    await session.endSession();
-  }
+    // }, transactionOptions);
+  // } finally {
+  //   await session.endSession();
+  // }
 }
 
 exports.getPublicProject = async (projectId) => {

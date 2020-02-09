@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../util/store/index'
 import ProjectsContainer from '../components/projects/ProjectsContainer'
 import Project from '../components/projects/Project'
+import EditProject from '../components/projects/EditProject'
 import EndpointsContainer from '../components/endpoints/EndpointsContainer'
 import EditEndpointHandler from '../components/endpoints/EditEndpointHandler'
 import About from '../components/About'
@@ -17,6 +18,7 @@ const router = new VueRouter({
     { path: '/', redirect: '/projects' },
     { path: '/projects', component: ProjectsContainer },
     { path: '/project/:id', component: Project },
+    { path: '/project-edit/:id', component: EditProject },
     { path: '/endpoints', component: EndpointsContainer },
     { path: '/endpoint/:id', component: EditEndpointHandler },
     { path: '/about', component: About },

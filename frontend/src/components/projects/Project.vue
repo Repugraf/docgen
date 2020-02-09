@@ -1,9 +1,6 @@
 <template>
   <div class="page-container" v-if="currentProject">
-    <div>
-      <h1>{{currentProject.name}}</h1>
-      <p>{{currentProject.description}}</p>
-    </div>
+    <ProjectHeading :project="currentProject"/>
     <EndpointsContainer />
     <PublishHandler v-if="!isPublic" />
     <PublishedInfo v-if="!isPublic" :project="currentProject" />
@@ -14,11 +11,13 @@
 import EndpointsContainer from "../endpoints/EndpointsContainer";
 import PublishHandler from "./PublishHandler";
 import PublishedInfo from "./PublishedInfo";
+import ProjectHeading from "./ProjectHeading";
 export default {
   components: {
     EndpointsContainer,
     PublishHandler,
-    PublishedInfo
+    PublishedInfo,
+    ProjectHeading
   },
   computed: {
     currentProject() {
@@ -40,6 +39,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

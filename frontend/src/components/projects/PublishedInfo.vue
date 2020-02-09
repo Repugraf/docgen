@@ -1,6 +1,6 @@
 <template>
   <p v-if="isPublished">
-    the project can be accessed by this link
+    the published project can be accessed by this link
     <a
       target="_blank"
       :href="publishedProjectLink"
