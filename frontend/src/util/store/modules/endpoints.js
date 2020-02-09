@@ -20,8 +20,7 @@ export default {
           rootState.globals.GET_ALL_ENDPOINTS_URL
         );
         commit('setEndpoints', endpoints.data);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -30,8 +29,7 @@ export default {
         commit('setIsLoading', true, { root: true });
         const endpoint = await rootState.axios.post(`${rootState.globals.GET_ENDPOINT_URL}`, payload);
         commit('setEndpoints', endpoint.data);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -39,8 +37,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         await rootState.axios.post(rootState.globals.ADD_ENDPOINT_URL, payload);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -48,8 +45,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         await rootState.axios.delete(`${rootState.globals.DELETE_ENDPOINT_URL}/${id}`);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -58,8 +54,7 @@ export default {
         commit('setIsLoading', true, { root: true });
         const endpoint = await rootState.axios.get(`${rootState.globals.GET_ENDPOINT_URL}/${id}`);
         commit('setCurrentEndpoint', endpoint.data);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -67,8 +62,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         await rootState.axios.patch(rootState.globals.UPDATE_ENDPOINT_URL, payload);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -76,8 +70,7 @@ export default {
       try {
         commit('setIsLoading', true, { root: true });
         await rootState.axios.put(rootState.globals.REPLACE_ENDPOINT_URL, payload);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     }

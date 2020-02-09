@@ -14,8 +14,7 @@ export default {
         commit('setIsLoading', true, { root: true });
         const project = await axios.get(`${rootState.globals.GET_PUBLIC_PROJECT_URL}/${id}`);
         commit('setProject', project.data);
-        commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     }
