@@ -4,6 +4,9 @@
       <input type="text" placeholder="Name" v-model="name" class="custom-input" />
     </label>
     <label>
+      <input type="text" placeholder="Base URL" v-model="baseUrl" class="custom-input" />
+    </label>
+    <label>
       <textarea
         v-model="description"
         placeholder="Description"
@@ -20,17 +23,23 @@
 
 <script>
 import closableModal from "../../util/mixins/closableModal";
+import { isURL } from "validator";
 export default {
   mixins: [closableModal],
   data() {
     return {
       name: "",
+      baseUrl: "",
       description: ""
     };
   },
   computed: {
     isValid() {
-      return this.name.length > 0;
+      return (
+        this.name.length > 0 &&
+        (this.baseUrl.length === 0 ||
+          isURL(this.baseUrl))
+      );
     }
   },
   methods: {
@@ -38,7 +47,8 @@ export default {
       if (!this.isValid) return;
       const payload = {
         name: this.name,
-        description: this.description
+        description: this.description,
+        base_url: this.baseUrl
       };
       await this.$store.dispatch("projects/createProject", payload);
       await this.$store.dispatch("projects/getProjects");

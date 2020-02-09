@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>{{project.name}}</h1>
+    <p v-if="project.base_url">Base URL - {{project.base_url}}</p>
     <p>{{project.description}}</p>
     <div class="controlls-container" v-if="!isPublic">
       <button

@@ -1,5 +1,8 @@
 <template>
   <div class="endpoint-data">
+    <div style="font-size:0.7rem;" v-if="project && project.base_url">
+      Full URL - {{fullURLsanitiser(project.base_url, data.url)}}
+    </div>
     <div style="margin:1rem 0;" v-if="data.description">{{data.description}}</div>
     <div class="request-body" v-if="data.requestBody">
       <div class="field-heading">request</div>
@@ -23,12 +26,26 @@ export default {
   components: {
     DataVisualiser
   },
+  computed: {
+    project() {
+      if (this.$route.name !== 'public') return this.$store.state.projects.currentProject;
+      return this.$store.state.public.publicProject;
+    }
+  },
   methods: {
     getStatusCode(code) {
       return getStatusCodes.getOneStatusCode(code)
+    },
+    fullURLsanitiser(base, route) {
+      let fullURl = base;
+      if (base[base.length-1] === '/') {
+        fullURl += route.substr(1, route.length -1);
+      } else {
+        fullURl += route;
+      }
+      return fullURl;
     }
-  },
-  created() {}
+  }
 };
 </script>
 

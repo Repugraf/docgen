@@ -48,7 +48,6 @@ export default {
         description: this.description
       };
       if (this.$route.params.id) payload.project_id = this.$route.params.id;
-      // if (!this.description) delete payload.description;
       await this.$store.dispatch("endpoints/addEndpoint", payload);
       if (this.$route.params.id)
         await this.$store.dispatch("endpoints/getEndpointsByFilter", {
