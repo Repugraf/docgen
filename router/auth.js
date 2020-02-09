@@ -1,8 +1,10 @@
+const {promisify} = require('util');
 const express = require('express');
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const hash = require('../util/hash');
 const { signupValidator, loginValidator } = require('../middleware/auth');
+const compare = promisify(bcrypt.compare);
 
 const router = express.Router();
 
@@ -40,7 +42,7 @@ router.post('/login', loginValidator, async (req, res) => {
     const { email, password } = req.body;
     const user = await usersCollection.findOne({ email });
     if (!user) return res.status(401).send({ message: 'user with this email was not found in the system' });
-    const passwordIsValid = bcrypt.compare(password, user.password);
+    const passwordIsValid = await compare(password, user.password);
     if (!passwordIsValid) return res.status(401).send({ message: 'wrong password' });
     let token = user.token;
     if (!token) {

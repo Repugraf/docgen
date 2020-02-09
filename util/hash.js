@@ -6,7 +6,7 @@ module.exports = stringToHash => {
     bcrypt.genSalt(saltRounds, (err, salt) => {
       if (err) reject(err);
       bcrypt.hash(stringToHash, salt, (err, hash) => {
-        if(err) reject(err);
+        if (err) reject(err);
         resolve(hash);
       })
     })

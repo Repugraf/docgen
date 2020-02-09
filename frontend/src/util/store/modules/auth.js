@@ -17,7 +17,7 @@ export default {
         if (!payload) throw new Error('no payload provided for signup!');
         await axios.post(`${rootState.globals.SIGNUP_URL}`, payload);
         commit('setIsLoading', false, { root: true });
-      } catch (error) {
+      } finally {
         commit('setIsLoading', false, { root: true });
       }
     },
@@ -31,7 +31,10 @@ export default {
         commit('setToken', token);
         commit('setIsLoading', false, { root: true });
       } catch (error) {
-
+        let errorMessage = '';
+        if (error.response) errorMessage = error.response.data.message;
+        else errorMessage = error.message;
+        alert(errorMessage);
         commit('setIsLoading', false, { root: true });
       }
     }

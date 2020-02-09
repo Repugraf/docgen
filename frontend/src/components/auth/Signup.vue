@@ -50,9 +50,11 @@ export default {
         await this.$store.dispatch("auth/signup", this.getFields());
         this.$router.push('/login');
       } catch (error) {
-        alert(error);
+        let errorMessage = '';
+        if (error.response) errorMessage = error.response.data.message;
+        else errorMessage = error.message;
+        alert(errorMessage);
       }
-      
     },
     getFields() {
       return {

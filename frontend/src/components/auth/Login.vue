@@ -39,12 +39,19 @@ export default {
   methods: {
     async submit() {
       if (!this.isValid) return;
-      await this.$store.dispatch("auth/login", this.getFields());
-      this.$store.commit(
-        "setAxios",
-        getAuthAxios(this.$store.getters[`auth/token`])
-      );
-      this.$router.push("/");
+      try {
+        await this.$store.dispatch("auth/login", this.getFields());
+        this.$store.commit(
+          "setAxios",
+          getAuthAxios(this.$store.getters[`auth/token`])
+        );
+        this.$router.push("/");  
+      } catch (error) {
+        let errorMessage = '';
+        if (error.response) errorMessage = error.response.data.message;
+        else errorMessage = error.message;
+        alert(errorMessage);
+      }
     },
     getFields() {
       return { email: this.email, password: this.password };
