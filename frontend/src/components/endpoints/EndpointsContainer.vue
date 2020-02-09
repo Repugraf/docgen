@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin:0.625rem 0;">
     <EndpointsList />
     <button
       v-if="!isPublic"
