@@ -1,13 +1,14 @@
 <template>
   <nav class="nav-bar">
     <div class="links-container">
-      <!-- <router-link to="/endpoints" class="router-link">
-        <div>home</div>
-      </router-link> -->
       <router-link to="/projects" class="router-link" v-if="isAuth">
         <div>projects</div>
       </router-link>
-      <router-link :to="`/project/${currentProject._id}`" class="router-link" v-if="isAuth && currentProject">
+      <router-link
+        :to="`/project/${currentProject._id}`"
+        class="router-link"
+        v-if="isAuth && currentProject"
+      >
         <div>{{currentProject.name}}</div>
       </router-link>
       <router-link to="/about" class="router-link">
@@ -16,29 +17,24 @@
       <router-link to="/login" class="router-link" v-if="!isAuth">
         <div>login</div>
       </router-link>
-      <a class="router-link" v-if="isAuth" @click="logout">
-        <div>logout</div>
-      </a>
+      <NavAccountDropdown :isAuth="isAuth"/>
     </div>
   </nav>
 </template>
 
 <script>
+import NavAccountDropdown from "./NavAccountDropdown";
 export default {
+  components: {
+    NavAccountDropdown
+  },
   computed: {
     isAuth() {
-      return this.$store.getters['auth/isAuthenticated'];
+      return this.$store.getters["auth/isAuthenticated"];
     },
     currentProject() {
       return this.$store.state.projects.currentProject;
     }
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem('token');
-      this.$store.commit('auth/setToken', null);
-      this.$router.push('/login');
-    }
   }
-}
+};
 </script>
