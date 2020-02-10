@@ -1,9 +1,9 @@
-const {promisify} = require('util');
+const { promisify } = require('util');
 const express = require('express');
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const hash = require('../util/hash');
-const { signupValidator, loginValidator } = require('../middleware/auth');
+const { signupValidator, loginValidator, tokenMiddlware } = require('../middleware/auth');
 const compare = promisify(bcrypt.compare);
 
 const router = express.Router();
@@ -55,6 +55,14 @@ router.post('/login', loginValidator, async (req, res) => {
     console.error(err);
     res.status(500).send(err);
   }
-})
+});
+
+router.get('/user', tokenMiddlware, (req, res) => (
+  res.json({
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email
+  })
+));
 
 module.exports = router;
