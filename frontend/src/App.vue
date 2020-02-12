@@ -26,6 +26,10 @@ export default {
       this.$store.commit("auth/setToken", token);
       this.$store.commit("setAxios", getAuthAxios(token));
     }
+  },
+  async beforeMount() {
+    if (this.$store.getters['auth/isAuthenticated'])
+      await this.$store.dispatch('auth/getUser');
   }
 };
 </script>

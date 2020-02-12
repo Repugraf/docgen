@@ -1,4 +1,3 @@
-import router from "./router";
 import axios from "axios";
 import store from "../util/store/index";
 
@@ -11,9 +10,7 @@ export const getAuthAxios = token => {
   authAxios.interceptors.response.use(undefined, err => {
     const { response } = err;
     if (response.status === 401) {
-      localStorage.removeItem('token');
-      store.commit('auth/setToken', null);
-      router.push('/login');
+      store.dispatch('auth/logout');
     }
   })
   return authAxios;

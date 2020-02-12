@@ -22,6 +22,7 @@ export default {
   // AUTH //
   SIGNUP_URL: `${auth}/signup`, // POST
   LOGIN_URL: `${auth}/login`, // POST
+  GET_USER_URL: `${auth}/user`, // GET
   // PUBLIC //
   GET_PUBLIC_PROJECT_URL: `${API_URL}/public` // GET with :id
 }

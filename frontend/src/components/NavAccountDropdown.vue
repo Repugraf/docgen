@@ -7,11 +7,11 @@
     @blur="display=false"
   >
     <div class="dropdown-button" @click="display=!display">
-      account
+      {{user && user.name ||'account'}}
       <div class="arrow-down"></div>
     </div>
     <div class="dropdown-menu" v-if="display">
-      <a class="router-link" @click="logout">logout</a>
+      <a class="router-link" @click="$store.dispatch('auth/logout')">logout</a>
     </div>
   </a>
 </template>
@@ -19,16 +19,10 @@
 <script>
 export default {
   props: ["isAuth"],
-  data() {
-    return {
-      display: false
-    };
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem("token");
-      this.$store.commit("auth/setToken", null);
-      if (this.$route.path !== "login") this.$router.push("/login");
+  data: () => ({ display: false }),
+  computed: {
+    user() {
+      return this.$store.getters["auth/user"];
     }
   }
 };
