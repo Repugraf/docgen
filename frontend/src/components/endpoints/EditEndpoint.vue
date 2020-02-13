@@ -4,7 +4,13 @@
       <select v-model="tempMethod" class="custom-select">
         <option v-for="i of methodOptions" :value="i" :key="i">{{i}}</option>
       </select>
-      <input type="text" v-model="tempUrl" class="custom-input" style="border-left:none;" />
+      <input
+        type="text"
+        v-model="tempUrl"
+        class="custom-input"
+        :class="{invalid:!urlValid}"
+        style="border-left:none;"
+      />
     </div>
     <div class="descrition">
       <h2>Description</h2>
@@ -13,7 +19,11 @@
     <EditableRequestBody v-if="canHaveRequestBody" v-model="tempRequestBody" />
     <EditableResponseBody v-model="tempResponseBody" />
     <div style="margin-top: 20px; display:flex;">
-      <button :disabled="!somethingWasChanged" class="btn btn-submit" @click="saveEndpoint">Save</button>
+      <button
+        :disabled="!somethingWasChanged || !isValid"
+        class="btn btn-submit"
+        @click="saveEndpoint"
+      >Save</button>
       <button
         class="btn btn-cancel"
         style="margin-left: 10px;"
@@ -26,6 +36,7 @@
 <script>
 import EditableRequestBody from "./EditableRequestBody";
 import EditableResponseBody from "./EditableResponseBody";
+import { isURL } from "validator";
 import { methodOptions } from "../../util/consts";
 export default {
   props: ["data"],
@@ -44,6 +55,12 @@ export default {
     };
   },
   computed: {
+    urlValid() {
+      return isURL(this.tempUrl, { require_host: false });
+    },
+    isValid() {
+      return this.urlValid && !!this.tempMethod;
+    },
     validFields() {
       const fieldsToUpdate = { ...this.data };
 
@@ -109,7 +126,7 @@ export default {
       }
     },
     async saveEndpoint() {
-      if (this.somethingWasChanged) {
+      if (this.somethingWasChanged && this.isValid) {
         const payload = this.validFields;
         await this.$store.dispatch("endpoints/replaceEndpoint", payload);
         await this.$store.dispatch(

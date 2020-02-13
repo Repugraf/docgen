@@ -9,7 +9,12 @@
     <div class="form-field">
       <label>
         <span>Base URL</span>
-        <input type="text" v-model="tempProject.base_url" class="custom-input" />
+        <input
+          type="text"
+          v-model="tempProject.base_url"
+          class="custom-input"
+          :class="{invalid: !isValid}"
+        />
       </label>
     </div>
     <div class="form-field">
@@ -35,7 +40,10 @@ export default {
       return this.$store.state.projects.currentProject;
     },
     isValid() {
-      return !this.tempProject.base_url || isURL(this.tempProject.base_url, { require_host: false });
+      return (
+        !this.tempProject.base_url ||
+        isURL(this.tempProject.base_url, { require_host: false })
+      );
     },
     wasChanged() {
       return JSON.stringify(this.project) !== JSON.stringify(this.tempProject);

@@ -4,7 +4,13 @@
       <input type="text" placeholder="Name" v-model="name" class="custom-input" />
     </label>
     <label>
-      <input type="text" placeholder="Base URL" v-model="baseUrl" class="custom-input" />
+      <input
+        type="text"
+        placeholder="Base URL"
+        v-model="baseUrl"
+        class="custom-input"
+        :class="{invalid:!urlValid}"
+      />
     </label>
     <label>
       <textarea
@@ -14,6 +20,7 @@
         style="height: 7rem;"
       ></textarea>
     </label>
+    <p style="color:red; font-size:0.6rem;" v-if="!urlValid">invalid url</p>
     <div class="controlls-container">
       <button class="btn btn-cancel" type="button" @click="closeModal" tabindex="-1">cancel</button>
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
@@ -34,12 +41,14 @@ export default {
     };
   },
   computed: {
-    isValid() {
+    urlValid() {
       return (
-        this.name.length > 0 &&
-        (this.baseUrl.length === 0 ||
-          isURL(this.baseUrl))
+        this.baseUrl.length === 0 ||
+        isURL(this.baseUrl, { require_host: false })
       );
+    },
+    isValid() {
+      return this.name.length > 0 && this.urlValid;
     }
   },
   methods: {
@@ -57,6 +66,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
