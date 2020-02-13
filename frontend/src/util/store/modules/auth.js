@@ -43,15 +43,11 @@ export default {
     async getUser({ rootState, commit }) {
       try {
         commit('setIsLoading', true, { root: true });
-        let user;
-        if (rootState.axios)
-          user = await rootState.axios.get(`${rootState.globals.GET_USER_URL}`);
-        else
-          user = await axios.get(`${rootState.globals.GET_USER_URL}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-          });
+        const user = await axios.get(`${rootState.globals.GET_USER_URL}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         commit('setUser', user.data);
       } finally {
         commit('setIsLoading', false, { root: true });
