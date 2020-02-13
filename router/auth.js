@@ -3,6 +3,7 @@ const express = require('express');
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const hash = require('../util/hash');
+const { welcomeMail } = require('../services/mailing');
 const { signupValidator, loginValidator, tokenMiddlware } = require('../middleware/auth');
 const compare = promisify(bcrypt.compare);
 
@@ -31,6 +32,7 @@ router.post('/signup', signupValidator, async (req, res) => {
     const token = await getToken(newUser.email + newUser._id);
     await usersCollection.updateOne({ _id: ObjectID(insertedId) }, { $set: { token } });
     res.status(201).json({ message: "user added successfuly" });
+    await welcomeMail(email, name);
   } catch (err) {
     console.error(err);
     res.status(500).send(err);
