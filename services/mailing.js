@@ -10,3 +10,4 @@ exports.welcomeMail = async (to, username) => {
   `
   return await mail(to, html, 'Welcome to Docgen');
 }
+

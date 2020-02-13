@@ -4,7 +4,7 @@ const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
 const hash = require('../util/hash');
 const { welcomeMail } = require('../services/mailing');
-const { signupValidator, loginValidator, tokenMiddlware } = require('../middleware/auth');
+const { signupValidator, loginValidator, tokenMiddlware, emailValidator } = require('../middleware/auth');
 const compare = promisify(bcrypt.compare);
 
 const router = express.Router();
@@ -66,5 +66,17 @@ router.get('/user', tokenMiddlware, (req, res) => (
     email: req.user.email
   })
 ));
+
+router.post('/request-new-pwd', emailValidator, async (req, res) => {
+  try {
+    const { email } = req.body;
+    const code = uuid();
+    await usersCollection.updateOne({ email }, { $set: { code } });
+    res.json({message: 'link sent to email'});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err);
+  }
+});
 
 module.exports = router;

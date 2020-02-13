@@ -25,7 +25,7 @@ exports.signupValidator = (req, res, next) => {
   const { name, email, password } = req.body;
   if (!name) return res.status(400).send({ message: 'name is requred!' });
   if (!isEmail(email)) return res.status(400).send({ message: 'email is not valid!' });
-  if (!password && password.length < 5) 
+  if (!password && password.length < 5)
     return res.status(403).send({ message: 'password should be at least 5 chars long!' });
   next();
 }
@@ -33,7 +33,13 @@ exports.signupValidator = (req, res, next) => {
 exports.loginValidator = (req, res, next) => {
   const { email, password } = req.body;
   if (!isEmail(email)) return res.status(400).send({ message: 'email is not valid!' });
-  if (!password && password.length < 5) 
+  if (!password && password.length < 5)
     return res.status(403).send({ message: 'password should be at least 5 chars long!' });
+  next();
+}
+
+exports.emailValidator = (req, res, next) => {
+  if (!isEmail(req.body.email))
+    return res.status(400).send({ message: 'email is not valid!' });
   next();
 }
