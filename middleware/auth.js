@@ -43,3 +43,12 @@ exports.emailValidator = (req, res, next) => {
     return res.status(400).send({ message: 'email is not valid!' });
   next();
 }
+
+exports.changePasswordValidator = (req, res, next) => {
+  const { email, code, password } = req.body;
+  if (!email || !code || !password)
+    return res.status(401).json({ message: "missing email code or password" });
+  if (password.length < 5)
+    return res.status(401).json({ message: "password should be atleast 5 chars long" });
+  next();
+}
