@@ -17,7 +17,7 @@ router.get('/all', tokenMiddlware, async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -28,7 +28,7 @@ router.get('/:id', tokenMiddlware, async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -40,7 +40,7 @@ router.post('/create', tokenMiddlware, async (req, res) => {
     res.sendStatus(201);
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -53,7 +53,7 @@ router.patch('/update', tokenMiddlware, async (req, res) => {
     res.json({ message: "updated successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -65,7 +65,7 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
     res.json({ message: "replaced successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -76,7 +76,7 @@ router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
     res.status(200).json({ message: 'project was deleted' });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 

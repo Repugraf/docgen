@@ -15,7 +15,7 @@
       <button class="btn btn-submit" :disabled="!isValid">submit</button>
       <h4>
         Not Registered?
-        <router-link to="/signup">Signup</router-link> instead!
+        <router-link to="/signup">Signup&nbsp;</router-link>instead!
       </h4>
     </form>
   </div>
@@ -45,12 +45,16 @@ export default {
           "setAxios",
           getAuthAxios(this.$store.getters[`auth/token`])
         );
-        this.$router.push("/");  
+        this.$router.push("/");
       } catch (error) {
-        let errorMessage = '';
+        let errorMessage = error.message;
         if (error.response) errorMessage = error.response.data.message;
-        else errorMessage = error.message;
-        alert(errorMessage);
+        this.$notify({
+          group: "error",
+          title: "Something went wrong",
+          text: errorMessage,
+          type: "error"
+        });
       }
     },
     getFields() {

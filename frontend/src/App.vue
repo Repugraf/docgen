@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Loading/>
+    <Loading />
+    <notifications group="error" position="top center" />
+    <notifications group="success" position="bottom left" />
     <NavBar />
     <ModalHandler />
     <router-view />
@@ -28,8 +30,8 @@ export default {
     }
   },
   async beforeMount() {
-    if (this.$store.getters['auth/isAuthenticated'])
-      await this.$store.dispatch('auth/getUser');
+    if (this.$store.getters["auth/isAuthenticated"])
+      await this.$store.dispatch("auth/getUser");
   }
 };
 </script>

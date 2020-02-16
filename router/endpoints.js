@@ -18,7 +18,7 @@ router.post('/add', tokenMiddlware, async (req, res) => {
     res.status(201).json({ message: "endpoint inserted successfuly", insertedId });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -46,7 +46,7 @@ router.get('/get-all/:id', tokenMiddlware, async (req, res) => {
     res.status(200).json(result)
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 })
 
@@ -57,7 +57,7 @@ router.get('/get/:id', tokenMiddlware, async (req, res) => {
     res.send(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -68,7 +68,7 @@ router.post('/get', tokenMiddlware, async (req, res) => {
     res.send(result);
   } catch (error) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -81,7 +81,7 @@ router.patch('/update', tokenMiddlware, async (req, res) => {
     res.json({ message: "updated successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -95,7 +95,7 @@ router.put('/replace', tokenMiddlware, async (req, res) => {
     res.json({ message: "replaced successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -106,7 +106,7 @@ router.delete('/delete/:id', tokenMiddlware, async (req, res) => {
     res.json({ message: "deleted successfuly" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 

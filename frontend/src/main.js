@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from './util/VueConfig'
 import App from './App.vue'
 import router from './util/router'
 import store from './util/store'

@@ -41,7 +41,7 @@ router.post('/signup', signupValidator, async (req, res) => {
     await welcomeMail(email, name);
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -58,10 +58,9 @@ router.post('/login', loginValidator, async (req, res) => {
       await usersCollection.updateOne({ email }, { $set: { token } })
     }
     res.status(200).send({ token })
-
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -86,7 +85,7 @@ router.post('/request-new-password', emailValidator, async (req, res) => {
     res.json({ message: 'link sent to email' });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -101,7 +100,7 @@ router.post('/change-password', changePasswordValidator, async (req, res) => {
     res.json({ message: "password updated!" });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err);
+    res.status(500).json({ message: err.message });
   }
 });
 
