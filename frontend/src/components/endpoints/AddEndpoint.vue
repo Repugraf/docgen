@@ -1,13 +1,21 @@
 <template>
   <form class="modal-form" @submit.prevent="submit">
+    <v-select
+      v-model="method"
+      :options="options"
+      placeholder="--Select method--"
+      :clearable="false"
+      :searchable="false"
+      transition="none"
+    />
     <label>
-      <select v-model="method" ref="select" class="custom-select">
-        <option value hidden>--Select method--</option>
-        <option v-for="i of options" :key="i" :value="i">{{i}}</option>
-      </select>
-    </label>
-    <label>
-      <input type="text" placeholder="Url" v-model="url" class="custom-input" :class="{invalid: !urlValid}" />
+      <input
+        type="text"
+        placeholder="Url"
+        v-model="url"
+        class="custom-input"
+        :class="{invalid: !urlValid}"
+      />
     </label>
     <label>
       <textarea v-model="description" placeholder="Description" class="custom-input"></textarea>
@@ -36,7 +44,7 @@ export default {
     };
   },
   computed: {
-    urlValid(){
+    urlValid() {
       return this.url.length === 0 || isURL(this.url, { require_host: false });
     },
     isValid() {
@@ -66,9 +74,16 @@ export default {
       this.method = "";
       this.description = "";
     }
-  },
-  mounted() {
-    setTimeout(() => this.$refs.select.focus());
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.custom-input {
+  font-size: 1rem;
+  color: #333;
+}
+textarea.custom-input {
+  font-size: 1.1rem;
+}
+</style>

@@ -251,4 +251,9 @@ form.auth {
   }
 }
 
+$vs-border-radius: 0;
+$vs-border-color: black;
+$vs-controls-color: black;
+@import "vue-select/src/scss/vue-select.scss";
+
 @import "./endpoint.scss";
