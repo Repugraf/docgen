@@ -17,9 +17,10 @@ exports.sendLink = async (to, user) => {
   <p style="padding:1rem;">
   Hello ${user.name}!
   <br>
-  You have requested the change of your password. <br/><br/>
+  You have requested the change of your password.<br/><br/>
   To change your password please follow this link: <a href="${url}">${url}<a>
-  <br/><br/>If you haven't requested it please ignore this message.
+  <br/><br/>The link will be valid for 10 minutes.<br/>
+  If you haven't requested it please ignore this message.
   </p>
   `;
   return await mail(to, html, 'Change password request');
