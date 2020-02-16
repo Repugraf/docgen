@@ -27,6 +27,7 @@ exports.signupValidator = (req, res, next) => {
   if (!isEmail(email)) return res.status(400).send({ message: 'email is not valid!' });
   if (!password && password.length < 5)
     return res.status(403).send({ message: 'password should be at least 5 chars long!' });
+  req.body.email = req.body.email.toLowerCase();
   next();
 }
 
@@ -35,12 +36,14 @@ exports.loginValidator = (req, res, next) => {
   if (!isEmail(email)) return res.status(400).send({ message: 'email is not valid!' });
   if (!password && password.length < 5)
     return res.status(403).send({ message: 'password should be at least 5 chars long!' });
+  req.body.email = req.body.email.toLowerCase();
   next();
 }
 
 exports.emailValidator = (req, res, next) => {
   if (!isEmail(req.body.email + ""))
     return res.status(400).send({ message: 'email is not valid!' });
+  req.body.email = req.body.email.toLowerCase();
   next();
 }
 
@@ -50,5 +53,6 @@ exports.changePasswordValidator = (req, res, next) => {
     return res.status(401).json({ message: "missing email code or password" });
   if (password.length < 5)
     return res.status(401).json({ message: "password should be atleast 5 chars long" });
+  req.body.email = req.body.email.toLowerCase();
   next();
 }
