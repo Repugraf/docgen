@@ -72,7 +72,7 @@ router.get('/user', tokenMiddlware, (req, res) => (
   })
 ));
 
-router.post('/request-new-password', emailValidator, async (req, res) => {
+router.post('/confirm-mail', emailValidator, async (req, res) => {
   try {
     const { email } = req.body;
     const user = await usersCollection.findOne({ email });
@@ -80,7 +80,8 @@ router.post('/request-new-password', emailValidator, async (req, res) => {
     const code = uuid();
     await usersCollection.updateOne({ email }, { $set: { code } });
     user.code = code;
-    user.url = `${req.protocol}://${req.get('host')}`;
+    const url = req.get('origin') || `${req.protocol}://${req.get('host')}`;
+    user.url = url;
     await sendLink(email, user);
     res.json({ message: 'link sent to email' });
   } catch (err) {

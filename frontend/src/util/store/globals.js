@@ -23,6 +23,8 @@ export default {
   SIGNUP_URL: `${auth}/signup`, // POST
   LOGIN_URL: `${auth}/login`, // POST
   GET_USER_URL: `${auth}/user`, // GET
+  CONFIRM_MAIL_URL: `${auth}/confirm-mail`, // POST
+  CHANGE_PASSWORD_URL: `${auth}/change-password`, // POST
   // PUBLIC //
   GET_PUBLIC_PROJECT_URL: `${API_URL}/public` // GET with :id
 }

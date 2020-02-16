@@ -52,6 +52,22 @@ export default {
       } finally {
         commit('setIsLoading', false, { root: true });
       }
+    },
+    async sendConfirmationMail({ rootState, commit }, payload) {
+      try {
+        commit('setIsLoading', true, { root: true });
+        await axios.post(`${rootState.globals.CONFIRM_MAIL_URL}`, payload);
+      } finally {
+        commit('setIsLoading', false, { root: true });
+      }
+    },
+    async changePassword({ rootState, commit }, payload) {
+      try {
+        commit('setIsLoading', true, { root: true });
+        await axios.post(`${rootState.globals.CHANGE_PASSWORD_URL}`, payload);
+      } finally {
+        commit('setIsLoading', false, { root: true });
+      }
     }
   },
   getters: {

@@ -9,6 +9,9 @@ import EditEndpointHandler from '../components/endpoints/EditEndpointHandler'
 import About from '../components/About'
 import Login from '../components/auth/Login'
 import Signup from '../components/auth/Signup'
+import ChangePassword from '../components/auth/ChangePassword'
+import ChangePasswordEmail from '../components/auth/ChangePasswordEmail'
+import ChangePasswordNewPassword from '../components/auth/ChangePasswordNewPassword'
 import PublicProject from '../components/public/PublicProject'
 
 Vue.use(VueRouter)
@@ -24,6 +27,12 @@ const router = new VueRouter({
     { path: '/about', component: About },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
+    {
+      path: '/change-password', component: ChangePassword, name: 'change-password', children: [
+        { path: 'email', component: ChangePasswordEmail, name: 'change-password' },
+        { path: 'new-password', component: ChangePasswordNewPassword, name: 'change-password' }
+      ]
+    },
     { path: '/public/:id', component: PublicProject, name: "public" }
   ],
   mode: 'history'
@@ -31,7 +40,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuth = localStorage.getItem('token');
-  if (!isAuth && to.path !== '/login' && to.path !== '/signup' && to.path !== '/about' && to.name !== 'public') {
+  if (!isAuth && to.path !== '/login' && to.path !== '/signup' &&
+    to.path !== '/about' && to.name !== 'public' && to.name !== 'change-password') {
     store.commit('auth/setToken', null);
     return next('/login');
   }

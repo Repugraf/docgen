@@ -12,7 +12,7 @@ exports.welcomeMail = async (to, username) => {
 }
 
 exports.sendLink = async (to, user) => {
-  const url = `${user.url}/change-password?code=${user.code}&email=${user.email}`
+  const url = `${user.url}/change-password/new-password?code=${user.code}&email=${user.email}`
   const html = `
   <p style="padding:1rem;">
   Hello ${user.name}!

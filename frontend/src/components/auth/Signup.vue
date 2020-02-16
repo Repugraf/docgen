@@ -1,6 +1,6 @@
 <template>
-  <div class="login-container">
-    <form @submit.prevent="submit">
+  <div class="page-container">
+    <form @submit.prevent="submit" class="auth">
       <h2>Signup</h2>
       <div class="form-field">
         <label>
@@ -21,8 +21,8 @@
         <label>
           <input
             type="password"
-            v-model="repeatPassword"
-            placeholder="repeat password"
+            v-model="confirmPassword"
+            placeholder="confirm password"
             class="custom-input"
           />
         </label>
@@ -40,7 +40,7 @@ export default {
       name: "",
       email: "",
       password: "",
-      repeatPassword: ""
+      confirmPassword: ""
     };
   },
   computed: {
@@ -49,7 +49,7 @@ export default {
         isEmail(this.email) &&
         this.password.length >= 5 &&
         this.name.length > 0 &&
-        this.password === this.repeatPassword
+        this.password === this.confirmPassword
       );
     }
   },
@@ -80,25 +80,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.login-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  form {
-    margin: 5rem auto;
-    width: 50%;
-    * {
-      box-sizing: border-box;
-    }
-    .form-field {
-      margin-bottom: 1rem;
-    }
-    input {
-      width: 100%;
-      height: 2.5rem;
-      border-radius: 4px;
-    }
-  }
-}
-</style>

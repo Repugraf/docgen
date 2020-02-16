@@ -1,6 +1,6 @@
 <template>
-  <div class="login-container">
-    <form @submit.prevent="submit">
+  <div class="page-container">
+    <form @submit.prevent="submit" class="auth">
       <h2>Login</h2>
       <div class="form-field">
         <label>
@@ -16,6 +16,9 @@
       <h4>
         Not Registered?
         <router-link to="/signup">Signup&nbsp;</router-link>instead!
+        <br />
+        <br />
+        <router-link to="/change-password/email">Forgot password?</router-link>
       </h4>
     </form>
   </div>
@@ -63,25 +66,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.login-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  form {
-    margin: 5rem auto;
-    width: 50%;
-    * {
-      box-sizing: border-box;
-    }
-    .form-field {
-      margin-bottom: 1rem;
-    }
-    input {
-      width: 100%;
-      height: 2.5rem;
-      border-radius: 4px;
-    }
-  }
-}
-</style>

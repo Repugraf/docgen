@@ -39,7 +39,7 @@ exports.loginValidator = (req, res, next) => {
 }
 
 exports.emailValidator = (req, res, next) => {
-  if (!isEmail(req.body.email))
+  if (!isEmail(req.body.email + ""))
     return res.status(400).send({ message: 'email is not valid!' });
   next();
 }
