@@ -16,4 +16,5 @@
 <ul>
   <li><code>DB_URL=mongodb://localhost:27017/docgen</code> <i>#(!is required!)</i> </li>
   <li><code>PORT=3000</code> <i>#(optional)</i></li>
+  <li><code>MAIL_CONNECTION_JSON</code></li>
 </ul>
