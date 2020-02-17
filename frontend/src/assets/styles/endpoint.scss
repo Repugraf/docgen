@@ -127,3 +127,55 @@
     }
   }
 }
+
+.editable-field-container {
+  margin-bottom: 3rem;
+}
+.editable-field-heading-container {
+  display: flex;
+  align-items: center;
+  select {
+    height: 2rem;
+    width: 20rem;
+    &.type {
+      margin-left: auto;
+    }
+  }
+}
+
+.edit-endpoint-container {
+  * {
+    box-sizing: border-box;
+  }
+  .heading {
+    height: 2rem;
+    display: flex;
+    * {
+      height: 100%;
+      width: 100%;
+    }
+    input {
+      flex: 10;
+    }
+    select {
+      flex: 1;
+    }
+    @media (min-width: 661px) and (max-width: 920px) {
+      select {
+        flex: 1.5;
+      }
+    }
+    @media (max-width: 660px) {
+      select {
+        flex: 3;
+      }
+    }
+  }
+  .descrition {
+    textarea {
+      width: 100%;
+      min-height: 6rem;
+      resize: none;
+    }
+  }
+}

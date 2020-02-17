@@ -3,7 +3,7 @@
   border: none;
   cursor: pointer;
   outline: none;
-  min-height: 2rem;
+  min-height: 2.2rem;
   border-radius: 5px;
   border: none;
   color: white;
@@ -45,9 +45,30 @@
 
 input.custom-input,
 textarea.custom-input {
+  font-size: 1.1rem;
   border: 1px solid black;
   padding: 0.5rem;
   &.invalid {
-   border-color: red; 
+    border-color: red;
+  }
+}
+textarea.custom-input {
+  font-size: 1.2rem;
+}
+
+select.custom-select {
+  border: 1px solid black;
+  font-size: 1rem;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(95%);
+  }
+  &:active {
+    filter: brightness(90%);
+  }
+}
+@-moz-document url-prefix() {
+  select.custom-select {
+    height: 2rem;
   }
 }

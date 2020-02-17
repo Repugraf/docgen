@@ -1,13 +1,19 @@
 <template>
   <form class="modal-form" @submit.prevent="submit">
-    <v-select
+    <!-- <v-select
       v-model="method"
       :options="options"
       placeholder="--Select method--"
       :clearable="false"
       :searchable="false"
       transition="none"
-    />
+    />-->
+    <label>
+      <select v-model="method" ref="select" class="custom-select">
+        <option value hidden>--Select method--</option>
+        <option v-for="i of options" :key="i" :value="i">{{i}}</option>
+      </select>
+    </label>
     <label>
       <input
         type="text"
@@ -79,11 +85,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-input {
-  font-size: 1rem;
-  color: #333;
-}
-textarea.custom-input {
-  font-size: 1.1rem;
-}
+// .custom-select{
+//   font-size: 1rem;
+// }
+// .custom-input {
+//   font-size: 1rem;
+//   color: #333;
+// }
+// textarea.custom-input {
+//   font-size: 1.1rem;
+// }
 </style>
